@@ -1,6 +1,6 @@
 "use strict";
 
-require("../phaser.min.js");
+let Phaser = require("../phaser.min.js");
 
 console.log("main.js test");
 
