@@ -1,27 +1,26 @@
 "use strict";
-
-let Phaser = require("../phaser.min.js");
-
 console.log("main.js test");
 
-let BIMG;
+let Phaser = require("../phaser.min.js");
+let mainMenu = require("./mainMenu.js");
 
-var game = new Phaser.Game(854, 480, Phaser.CANVAS, null, {
-    preload: preload, create: create, update: update
-});
+let titleIMG;
 
-function preload(){
-    game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-    game.scale.pageAlignHorizontally = true;
-    game.scale.pageAlignVertically = true;
-    game.load.image('BIMG', 'js/media/ttl-scrn.png');
-}
+var game = new Phaser.Game(854, 480, Phaser.CANVAS, null);
 
-function create(){
-    BIMG = game.add.sprite(game.world.width*0.5, game.world.height*0.5, 'BIMG');
-    BIMG.anchor.set(0.5);
-}
+let titleState = {
+    preload: function(){
+        game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        game.scale.pageAlignHorizontally = true;
+        game.scale.pageAlignVertically = true;
+        game.load.image('titleIMG', 'js/media/ttl-scrn.png');
+    },
 
-function update(){
+    create: function(){
+        titleIMG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'titleIMG');
+        titleIMG.anchor.set(0.5);
+    }
+};
 
-}
+game.state.add('title', titleState);
+game.state.start('title');
