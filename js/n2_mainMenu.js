@@ -28,7 +28,7 @@ let menuState = {
         gameShort.state.start('scores');
     },
     following: function() {
-        console.log("following!");
+        gameShort.state.start('following');
     },
     leaderboards: function (){
         console.log("leaderboards!");

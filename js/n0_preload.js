@@ -21,6 +21,8 @@ let logInBTN;
 let lvOneBG;
 //Scores
 let logoScores;
+//Following
+let logoFollowing;
 
 let getWordData = () => {
     return new Promise ((resolve, reject) => {
@@ -67,6 +69,9 @@ let preloadState = {
 
         //Leaderboards
         game.load.image('logoScores', 'js/media/logoScores.png');
+
+        //Following
+        game.load.image('logoFollowing', 'js/media/logoFollowing.png');
     },
 
     create: function(){
@@ -74,4 +79,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing};
