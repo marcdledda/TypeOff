@@ -13,7 +13,7 @@ let logInBTN = n0_preload.logInBTN;
 let menuState = {
     create: function() {
         menuIMG = gameShort.add.image(gameShort.world.width*0.5, gameShort.world.height*0.5, 'menuIMG');
-        menuIMG.anchor.set(0.5);
+        menuIMG.anchor.set(0.5, 0.5);
 
         newGameBTN = gameShort.add.button(347, 246, 'newGameBTN', this.newGame, this);
         myScoresBTN = gameShort.add.button(337, 291, 'myScoresBTN', this.myScores, this);
@@ -22,8 +22,8 @@ let menuState = {
         logInBTN = gameShort.add.button(367, 426, 'logInBTN', this.logIn, this);
     },
     newGame: function() {
-        // gameShort.state.start('title');
-        console.log("new game!");
+        gameShort.state.start('play');
+        // console.log("new game!");
     },
     myScores: function() {
         console.log("my scores!");
