@@ -8,6 +8,7 @@ let titleIMG;
 let menuIMG;
 let newGameBTN;
 let myScoresBTN;
+let followingBTN;
 
 let getWordData = () => {
     return new Promise ((resolve, reject) => {
@@ -36,6 +37,7 @@ let preloadState = {
         game.load.image('menuIMG', 'js/media/mainMenu.png');
         game.load.image('newGameBTN', 'js/media/BTN_newGame.png');
         game.load.image('myScoresBTN', 'js/media/BTN_myScores.png');
+        game.load.image('followingBTN', 'js/media/BTN_following.png');
     },
 
     create: function(){
@@ -43,4 +45,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN};
