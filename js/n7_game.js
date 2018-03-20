@@ -15,6 +15,7 @@ gameShort.state.add('preload', n0_preload.preloadState);
 gameShort.state.add('title', n1_titleScreen.titleState);
 gameShort.state.add('menu', n2_mainMenu.menuState);
 gameShort.state.add('play', n3_play.playState);
+    gameShort.state.add('pause', n3_play.pauseState);
 gameShort.state.add('scores', n4_myScores.scoreState);
 gameShort.state.add('following', n5_following.followState);
 gameShort.state.add('leaderboards', n6_leaderboards.leaderState);

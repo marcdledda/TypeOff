@@ -19,6 +19,11 @@ let leaderboardsBTN;
 let logInBTN;
 //Play
 let lvOneBG;
+let pauseBTN;
+let pauseScreen;
+let logoPause;
+let resumeBTN;
+let backToTitleBTN;
 //Scores
 let logoScores;
 //Following
@@ -68,6 +73,11 @@ let preloadState = {
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
+        game.load.image('pauseBTN', 'js/media/pauseBTN.png');
+        game.load.image('pauseScreen', 'js/media/pauseScreen.png');
+        game.load.image('logoPause', 'js/media/logoPause.png');
+        game.load.image('resumeBTN', 'js/media/resume.png');
+        game.load.image('backToTitleBTN', 'js/media/backToTitle.png');
 
         //Leaderboards
         game.load.image('logoScores', 'js/media/logoScores.png');
@@ -84,4 +94,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN};
