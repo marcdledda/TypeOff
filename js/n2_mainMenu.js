@@ -23,10 +23,9 @@ let menuState = {
     },
     newGame: function() {
         gameShort.state.start('play');
-        // console.log("new game!");
     },
     myScores: function() {
-        console.log("my scores!");
+        gameShort.state.start('scores');
     },
     following: function() {
         console.log("following!");

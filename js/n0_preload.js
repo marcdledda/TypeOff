@@ -4,6 +4,10 @@ let Phaser = require("../phaser.min.js");
 
 var game = new Phaser.Game(854, 480, Phaser.CANVAS, null);
 
+//default Menu
+let defaultMenu;
+//exit
+let xBTN;
 //Title Screen
 let titleIMG;
 //Main Menu
@@ -15,6 +19,8 @@ let leaderboardsBTN;
 let logInBTN;
 //Play
 let lvOneBG;
+//Scores
+let logoScores;
 
 let getWordData = () => {
     return new Promise ((resolve, reject) => {
@@ -39,6 +45,12 @@ let preloadState = {
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
 
+        //defaultMenu
+        game.load.image('defaultMenu', 'js/media/defaultMenu.png');
+
+        //exit
+        game.load.image('xBTN', 'js/media/xBTN.png');
+
         //Title Screen
         game.load.image('titleIMG', 'js/media/titleScreen.png');
 
@@ -52,6 +64,9 @@ let preloadState = {
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
+
+        //Leaderboards
+        game.load.image('logoScores', 'js/media/logoScores.png');
     },
 
     create: function(){
@@ -59,4 +74,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu};
