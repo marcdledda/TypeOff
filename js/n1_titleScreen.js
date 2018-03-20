@@ -4,6 +4,7 @@ let n0_preload = require("./n0_preload");
 
 let gameShort = n0_preload.game;
 let titleIMG = n0_preload.titleIMG;
+let newGameBTN = n0_preload.newGameBTN;
 
 let titleState = {
     create: function() {
