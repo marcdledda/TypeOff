@@ -8,6 +8,7 @@ let newGameBTN = n0_preload.newGameBTN;
 let myScoresBTN = n0_preload.myScoresBTN;
 let followingBTN = n0_preload.followingBTN;
 let leaderboardsBTN = n0_preload.leaderboardsBTN;
+let logInBTN = n0_preload.logInBTN;
 
 let menuState = {
     create: function() {
@@ -18,6 +19,7 @@ let menuState = {
         myScoresBTN = gameShort.add.button(337, 291, 'myScoresBTN', this.myScores, this);
         followingBTN = gameShort.add.button(337, 336, 'followingBTN', this.following, this);
         leaderboardsBTN = gameShort.add.button(307, 381, 'leaderboardsBTN', this.leaderboards, this);
+        logInBTN = gameShort.add.button(367, 426, 'logInBTN', this.logIn, this);
     },
     newGame: function() {
         // gameShort.state.start('title');
@@ -27,10 +29,13 @@ let menuState = {
         console.log("my scores!");
     },
     following: function() {
-        console.log("following");
+        console.log("following!");
     },
     leaderboards: function (){
-        console.log("leaderboards");
+        console.log("leaderboards!");
+    },
+    logIn: function() {
+        console.log("log in!");
     }
 };
 
