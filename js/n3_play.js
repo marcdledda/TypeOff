@@ -23,11 +23,18 @@ let playState = {
         pauseBTN.scale.setTo(0.534, 0.529);
 
         wordData();
+
+        game.input.keyboard.addCallbacks(this, keyPress, null, null);
     },
     pause: function() {
         game.state.start('pause');
     }
 };
+
+function keyPress(e){
+    console.log(e);
+    console.log("press");
+}
 
 let pauseState = {
     create: function() {
