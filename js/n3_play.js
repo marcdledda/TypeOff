@@ -9,14 +9,20 @@ let pauseScreen = n0_preload.pauseScreen;
 let logoPause = n0_preload.logoPause;
 let resumeBTN = n0_preload.resumeBTN;
 let backToTitleBTN = n0_preload.backToTitleBTN;
+let textBar = n0_preload.textBar;
+
+let wordLibrary;
 
 let playState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        textBar = game.add.image(0, 318, 'textBar');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
+
+        wordData();
     },
     pause: function() {
         game.state.start('pause');
@@ -41,5 +47,18 @@ let pauseState = {
         game.state.start('menu');
     }
 };
+
+function wordData() {
+    if (wordLibrary == undefined){
+        n0_preload.getWordData().then(
+            (resolve) => {
+                wordLibrary = resolve;
+            },
+            (reject) => {
+                console.log("didn't load!");
+            }
+        );
+    }
+}
 
 module.exports = {playState, pauseState};
