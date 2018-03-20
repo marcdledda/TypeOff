@@ -31,7 +31,7 @@ let menuState = {
         gameShort.state.start('following');
     },
     leaderboards: function (){
-        console.log("leaderboards!");
+        gameShort.state.start('leaderboards');
     },
     logIn: function() {
         console.log("log in!");
