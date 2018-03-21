@@ -25,6 +25,8 @@ let logoPause;
 let resumeBTN;
 let backToTitleBTN;
 let textBar;
+let tutorialScreen;
+let startBTN;
 //Scores
 let logoScores;
 //Following
@@ -80,6 +82,8 @@ let preloadState = {
         game.load.image('resumeBTN', 'js/media/resume.png');
         game.load.image('backToTitleBTN', 'js/media/backToTitle.png');
         game.load.image('textBar', 'js/media/textBar.png');
+        game.load.image('tutorialScreen', 'js/media/tutorial.png');
+        game.load.image('startBTN', 'js/media/startBTN.png');
 
         //Leaderboards
         game.load.image('logoScores', 'js/media/logoScores.png');
@@ -96,4 +100,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN};

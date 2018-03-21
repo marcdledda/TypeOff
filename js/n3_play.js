@@ -10,6 +10,8 @@ let logoPause = n0_preload.logoPause;
 let resumeBTN = n0_preload.resumeBTN;
 let backToTitleBTN = n0_preload.backToTitleBTN;
 let textBar = n0_preload.textBar;
+let tutorialScreen = n0_preload.tutorialScreen;
+let startBTN = n0_preload.startBTN;
 
 let wordLibrary;
 
@@ -18,22 +20,74 @@ let playState = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        tutorialScreen = game.add.image(234, 38, 'tutorialScreen');
+
+        pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
+        pauseBTN.scale.setTo(0.534, 0.529);
+        startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
+
+        wordData();
+    },
+    pause: function() {
+        // game.state.start('pause');
+    },
+    start: function() {
+        game.state.start('start');
+    }
+};
+
+let startState = {
+    create: function() {
+        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
+        lvOneBG.anchor.set(0.5, 0.5);
+        textBar = game.add.image(0, 318, 'textBar');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        wordData();
-
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
+        game.input.onDown.add(this.pauseMenu);
     },
     pause: function() {
-        game.state.start('pause');
+        // game.state.start('pause');
+        game.paused = true;
+        pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
+        pauseScreen.anchor.set(0.5, 0.5);
+        logoPause = game.add.image(330, 123, 'logoPause');
+
+        resumeBTN = game.add.image(352, 277, 'resumeBTN');
+        backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
+    },
+    pauseMenu: function(event){
+        if (game.paused){
+            if(event.x > 352 && event.x < 502 && event.y > 277 && event.y < 302){
+                pauseScreen.destroy();
+                logoPause.destroy();
+                resumeBTN.destroy();
+                backToTitleBTN.destroy();
+                game.paused = false;
+            }
+            if(event.x > 265 && event.x < 590 && event.y > 336 && event.y < 361){
+                game.paused = false;
+                game.state.start('menu');
+            }
+        }
     }
+    // resume: function(){
+    //     console.log("click on resume");
+    //     pauseScreen.destroy();
+    //     logoPause.destroy();
+    //     resumeBTN.destroy();
+    //     backToTitleBTN.destroy();
+    //     game.paused = false;
+    // },
+    // back: function(){
+    //     game.state.start('menu');        
+    // }
 };
 
 function keyPress(e){
-    console.log(e);
-    console.log("press");
+    console.log("pressed", e.key);
 }
 
 let pauseState = {
@@ -48,7 +102,7 @@ let pauseState = {
         backToTitleBTN = game.add.button(265, 336, 'backToTitleBTN', this.back, this);
     },
     resume: function(){
-        game.state.start('play');
+        game.state.start('start');
     },
     back: function(){
         game.state.start('menu');
@@ -68,4 +122,4 @@ function wordData() {
     }
 }
 
-module.exports = {playState, pauseState};
+module.exports = {playState, pauseState, startState};
