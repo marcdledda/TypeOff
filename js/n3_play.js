@@ -13,7 +13,9 @@ let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
 
+let bmd;
 let wordLibrary;
+let word = "word";
 
 let playState = {
     create: function() {
@@ -22,17 +24,16 @@ let playState = {
         textBar = game.add.image(0, 318, 'textBar');
         tutorialScreen = game.add.image(234, 38, 'tutorialScreen');
 
-        pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
+        pauseBTN = game.add.image(23, 18, 'pauseBTN');
         pauseBTN.scale.setTo(0.534, 0.529);
         startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
 
         wordData();
     },
-    pause: function() {
-        // game.state.start('pause');
-    },
     start: function() {
-        game.state.start('start');
+        if (wordLibrary !== undefined){
+            game.state.start('start');
+        }
     }
 };
 
@@ -45,11 +46,17 @@ let startState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
+        //words
+        bmd = game.make.bitmapData(game.width, game.height);
+        bmd.context.font = '25px press_start_2pregular';
+        bmd.context.fillStyle = '#ffffff';
+        bmd.context.fillText(word, 25, 25);
+        bmd.addToWorld();
+
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
         game.input.onDown.add(this.pauseMenu);
     },
     pause: function() {
-        // game.state.start('pause');
         game.paused = true;
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
@@ -73,47 +80,19 @@ let startState = {
             }
         }
     }
-    // resume: function(){
-    //     console.log("click on resume");
-    //     pauseScreen.destroy();
-    //     logoPause.destroy();
-    //     resumeBTN.destroy();
-    //     backToTitleBTN.destroy();
-    //     game.paused = false;
-    // },
-    // back: function(){
-    //     game.state.start('menu');        
-    // }
 };
 
 function keyPress(e){
     console.log("pressed", e.key);
 }
 
-let pauseState = {
-    create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
-        pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
-        pauseScreen.anchor.set(0.5, 0.5);
-        logoPause = game.add.image(330, 123, 'logoPause');
-
-        resumeBTN = game.add.button(352, 277, 'resumeBTN', this.resume, this);
-        backToTitleBTN = game.add.button(265, 336, 'backToTitleBTN', this.back, this);
-    },
-    resume: function(){
-        game.state.start('start');
-    },
-    back: function(){
-        game.state.start('menu');
-    }
-};
-
 function wordData() {
     if (wordLibrary == undefined){
         n0_preload.getWordData().then(
             (resolve) => {
                 wordLibrary = resolve;
+                console.log(wordLibrary);
+                console.log("random word", wordLibrary[0].word);
             },
             (reject) => {
                 console.log("didn't load!");
@@ -122,4 +101,4 @@ function wordData() {
     }
 }
 
-module.exports = {playState, pauseState, startState};
+module.exports = {playState, startState};
