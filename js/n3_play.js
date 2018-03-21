@@ -32,14 +32,14 @@ let playState = {
         pauseBTN.scale.setTo(0.534, 0.529);
         startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
         
-        rndNum = game.rnd.integerInRange(0, 600);
-        console.log(rndNum);
+        // rndNum = game.rnd.integerInRange(0, 600);
+        // console.log(rndNum);
 
         wordData();
     },
     start: function() {
         if (wordLibrary !== undefined){
-            word = wordLibrary[rndNum].word;
+            // word = wordLibrary[rndNum].word;
             game.state.start('start');
         }
     }
@@ -55,17 +55,19 @@ let startState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        //word setup
-        for (let i = 0; i < word.length; i++){
-            correct[i] = word[i] + `n${i}`;
-        }
+        // //word setup
+        // for (let i = 0; i < word.length; i++){
+        //     correct[i] = word[i] + `n${i}`;
+        // }
 
-        //words
-        bmd = game.make.bitmapData(game.width, game.height);
-        bmd.context.font = '25px press_start_2pregular';
-        bmd.context.fillStyle = '#ffffff';
-        bmd.context.fillText(word, 0, 25);
-        bmd.addToWorld(377, 348, 0, 0);
+        // //words
+        // bmd = game.make.bitmapData(game.width, game.height);
+        // bmd.context.font = '25px press_start_2pregular';
+        // bmd.context.fillStyle = '#ffffff';
+        // bmd.context.fillText(word, 0, 25);
+        // bmd.addToWorld(377, 348, 0, 0);
+
+        wordSetup();
 
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
         game.input.onDown.add(this.pauseMenu);
@@ -96,6 +98,26 @@ let startState = {
     }
 };
 
+function random(){
+    let random = game.rnd.integerInRange(0, 600);
+    let preWord = wordLibrary[random].word;
+    word = preWord.toLowerCase();
+}
+
+function wordSetup(){
+    random();
+    for (let i = 0; i < word.length; i++){
+        correct[i] = word[i] + `n${i}`;
+    }
+    let txtWidth;
+    bmd = game.make.bitmapData(game.width, game.height);
+    bmd.context.font = '25px press_start_2pregular';
+    bmd.context.fillStyle = '#ffffff';
+    bmd.context.fillText(word, 0, 25);
+    txtWidth = ((game.world.width) / 2) - ((bmd.context.measureText(word).width) / 2);
+    bmd.addToWorld(txtWidth, 352, 0, 0);
+}
+
 function keyPress(e){
     bmd.cls();
     var x = 0;
@@ -112,7 +134,6 @@ function keyPress(e){
         }
 
         if (e.key === letter){
-            console.log("press correct!");
             if (correct[i].slice(1,2) == "n" && correct[i-1] === undefined || correct[j-1].slice(1,2) !== "n"){
                 correct[i] = correct[i].substr(0,1) + `y${i}`;
             }
