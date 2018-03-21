@@ -18,6 +18,7 @@ let bmd;
 let wordLibrary;
 let word = "alba";
 let correct = [];
+let rndNum;
 
 //TUTORIAL PART
 let playState = {
@@ -30,11 +31,15 @@ let playState = {
         pauseBTN = game.add.image(23, 18, 'pauseBTN');
         pauseBTN.scale.setTo(0.534, 0.529);
         startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
+        
+        rndNum = game.rnd.integerInRange(0, 600);
+        console.log(rndNum);
 
         wordData();
     },
     start: function() {
         if (wordLibrary !== undefined){
+            word = wordLibrary[rndNum].word;
             game.state.start('start');
         }
     }
@@ -92,7 +97,6 @@ let startState = {
 };
 
 function keyPress(e){
-    // console.log("pressed", e.key);
     bmd.cls();
     var x = 0;
     // console.log("get start", correct[0].substr(0,1));
@@ -122,7 +126,6 @@ function keyPress(e){
 
         x += bmd.context.measureText(letter).width;
     }
-    console.log('after press', correct);
 }
 
 function wordData() {
@@ -131,7 +134,6 @@ function wordData() {
             (resolve) => {
                 wordLibrary = resolve;
                 console.log(wordLibrary);
-                console.log("random word", wordLibrary[0].word);
             },
             (reject) => {
                 console.log("didn't load!");
