@@ -13,6 +13,7 @@ let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
 
+let wordDisplay;
 let bmd;
 let wordLibrary;
 let word = "word";
@@ -50,8 +51,11 @@ let startState = {
         bmd = game.make.bitmapData(game.width, game.height);
         bmd.context.font = '25px press_start_2pregular';
         bmd.context.fillStyle = '#ffffff';
-        bmd.context.fillText(word, 25, 25);
-        bmd.addToWorld();
+        bmd.context.fillText(word, 0, 25);
+        bmd.addToWorld(377, 348, 0, 0);
+
+        //words 2d
+        // wordDisplay = game.add.text();
 
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
         game.input.onDown.add(this.pauseMenu);
