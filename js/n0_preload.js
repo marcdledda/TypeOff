@@ -27,6 +27,7 @@ let backToTitleBTN;
 let textBar;
 let tutorialScreen;
 let startBTN;
+let enemyHeart;
 //Scores
 let logoScores;
 //Following
@@ -73,6 +74,7 @@ let preloadState = {
         game.load.image('followingBTN', 'js/media/BTN_following.png');
         game.load.image('leaderboardsBTN', 'js/media/BTN_leaderboards.png');
         game.load.image('logInBTN', 'js/media/BTN_logIn.png');
+        game.load.image('enemyHeart', 'js/media/heart.png');
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
@@ -100,4 +102,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart};

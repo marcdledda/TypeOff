@@ -19,6 +19,9 @@ let wordLibrary;
 let word = "alba";
 let correct = [];
 let rndNum;
+let lv1EnemyTxt;
+let lv1EnemyLife = 19;
+let enemyHeart = n0_preload.enemyHeart;
 
 //TUTORIAL PART
 let playState = {
@@ -31,15 +34,11 @@ let playState = {
         pauseBTN = game.add.image(23, 18, 'pauseBTN');
         pauseBTN.scale.setTo(0.534, 0.529);
         startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
-        
-        // rndNum = game.rnd.integerInRange(0, 600);
-        // console.log(rndNum);
 
         wordData();
     },
     start: function() {
         if (wordLibrary !== undefined){
-            // word = wordLibrary[rndNum].word;
             game.state.start('start');
         }
     }
@@ -55,18 +54,11 @@ let startState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        // //word setup
-        // for (let i = 0; i < word.length; i++){
-        //     correct[i] = word[i] + `n${i}`;
-        // }
-
-        // //words
-        // bmd = game.make.bitmapData(game.width, game.height);
-        // bmd.context.font = '25px press_start_2pregular';
-        // bmd.context.fillStyle = '#ffffff';
-        // bmd.context.fillText(word, 0, 25);
-        // bmd.addToWorld(377, 348, 0, 0);
-
+        lv1EnemyTxt = game.add.text(481, 185, 'x19', { font: '25px press_start_2pregular', fill: '#FF0000' });
+        enemyHeart = game.add.image(481, 210, 'enemyHeart');
+        //Temp Scale
+        enemyHeart.scale.setTo(5.538, 5.545);
+        
         wordSetup();
 
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
@@ -154,6 +146,8 @@ function keyPress(e){
 
     if (checker == word.length) {
         bmd.cls();
+        lv1EnemyLife--;
+        lv1EnemyTxt.setText(`x${lv1EnemyLife}`);
         wordSetup();
     }
 }
