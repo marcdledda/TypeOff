@@ -119,10 +119,13 @@ function wordSetup(){
 }
 
 function keyPress(e){
+    console.log("press");
     bmd.cls();
     var x = 0;
     // console.log("get start", correct[0].substr(0,1));
     // console.log("get status", correct[0].slice(1,2));
+    let checker = 0;
+
     for (let i = 0; i < word.length; i++){
         var letter = word.charAt(i);
         let j;
@@ -140,12 +143,18 @@ function keyPress(e){
         }
         if (correct[i].slice(1,2) == "y"){
             bmd.context.fillStyle = "#00ff00";
+            checker++;
         } else {
             bmd.context.fillStyle = "#ffffff";
         }
         bmd.context.fillText(letter, x, 25);
 
         x += bmd.context.measureText(letter).width;
+    }
+
+    if (checker == word.length) {
+        bmd.cls();
+        wordSetup();
     }
 }
 
@@ -154,7 +163,6 @@ function wordData() {
         n0_preload.getWordData().then(
             (resolve) => {
                 wordLibrary = resolve;
-                console.log(wordLibrary);
             },
             (reject) => {
                 console.log("didn't load!");
