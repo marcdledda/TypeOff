@@ -13,11 +13,13 @@ let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
 
-let wordDisplay;
+let num = 2;
 let bmd;
 let wordLibrary;
-let word = "word";
+let word = "alba";
+let correct = [];
 
+//TUTORIAL PART
 let playState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
@@ -38,6 +40,7 @@ let playState = {
     }
 };
 
+//GAME PART
 let startState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
@@ -47,15 +50,17 @@ let startState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
+        //word setup
+        for (let i = 0; i < word.length; i++){
+            correct[i] = word[i] + `n${i}`;
+        }
+
         //words
         bmd = game.make.bitmapData(game.width, game.height);
         bmd.context.font = '25px press_start_2pregular';
         bmd.context.fillStyle = '#ffffff';
         bmd.context.fillText(word, 0, 25);
         bmd.addToWorld(377, 348, 0, 0);
-
-        //words 2d
-        // wordDisplay = game.add.text();
 
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
         game.input.onDown.add(this.pauseMenu);
@@ -87,7 +92,37 @@ let startState = {
 };
 
 function keyPress(e){
-    console.log("pressed", e.key);
+    // console.log("pressed", e.key);
+    bmd.cls();
+    var x = 0;
+    // console.log("get start", correct[0].substr(0,1));
+    // console.log("get status", correct[0].slice(1,2));
+    for (let i = 0; i < word.length; i++){
+        var letter = word.charAt(i);
+        let j;
+
+        if (i == 0){
+            j = 1;
+        } else {
+            j = i;
+        }
+
+        if (e.key === letter){
+            console.log("press correct!");
+            if (correct[i].slice(1,2) == "n" && correct[i-1] === undefined || correct[j-1].slice(1,2) !== "n"){
+                correct[i] = correct[i].substr(0,1) + `y${i}`;
+            }
+        }
+        if (correct[i].slice(1,2) == "y"){
+            bmd.context.fillStyle = "#00ff00";
+        } else {
+            bmd.context.fillStyle = "#ffffff";
+        }
+        bmd.context.fillText(letter, x, 25);
+
+        x += bmd.context.measureText(letter).width;
+    }
+    console.log('after press', correct);
 }
 
 function wordData() {
