@@ -28,6 +28,10 @@ let textBar;
 let tutorialScreen;
 let startBTN;
 let enemyHeart;
+let p1Heart;
+let p2Heart;
+let p3Heart;
+let heartDamage;
 //Scores
 let logoScores;
 //Following
@@ -74,7 +78,6 @@ let preloadState = {
         game.load.image('followingBTN', 'js/media/BTN_following.png');
         game.load.image('leaderboardsBTN', 'js/media/BTN_leaderboards.png');
         game.load.image('logInBTN', 'js/media/BTN_logIn.png');
-        game.load.image('enemyHeart', 'js/media/heart.png');
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
@@ -86,6 +89,8 @@ let preloadState = {
         game.load.image('textBar', 'js/media/textBar.png');
         game.load.image('tutorialScreen', 'js/media/tutorial.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
+        game.load.image('heart', 'js/media/heart.png');
+        game.load.image('heartDamage', 'js/media/heartDamage.png');
 
         //Leaderboards
         game.load.image('logoScores', 'js/media/logoScores.png');
@@ -102,4 +107,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart, p1Heart, p2Heart, p3Heart, heartDamage};

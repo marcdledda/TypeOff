@@ -20,8 +20,15 @@ let word = "alba";
 let correct = [];
 let rndNum;
 let lv1EnemyTxt;
-let lv1EnemyLife = 19;
+let lv1EnemyLife = 5;
 let enemyHeart = n0_preload.enemyHeart;
+
+let playerLife = 3;
+let p1Heart = n0_preload.p1Heart;
+let p2Heart = n0_preload.p2Heart;
+let p3Heart = n0_preload.p3Heart;
+let heartDamage = n0_preload.heartDamage;
+let playerScore = 0;
 
 //TUTORIAL PART
 let playState = {
@@ -54,10 +61,19 @@ let startState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv1EnemyTxt = game.add.text(481, 185, 'x19', { font: '25px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(481, 210, 'enemyHeart');
+        lv1EnemyTxt = game.add.text(481, 185, `x${lv1EnemyLife}`, { font: '25px press_start_2pregular', fill: '#FF0000' });
+        enemyHeart = game.add.image(481, 210, 'heart');
         //Temp Scale
         enemyHeart.scale.setTo(5.538, 5.545);
+
+        LV1mob();
+
+        p1Heart = game.add.image(157, 210, 'heart');
+        p1Heart.scale.setTo(5.538, 5.545);
+        p2Heart = game.add.image(229, 210, 'heart');
+        p2Heart.scale.setTo(5.538, 5.545);
+        p3Heart = game.add.image(301, 210, 'heart');
+        p3Heart.scale.setTo(5.538, 5.545);
         
         wordSetup();
 
@@ -111,7 +127,6 @@ function wordSetup(){
 }
 
 function keyPress(e){
-    console.log("press");
     bmd.cls();
     var x = 0;
     // console.log("get start", correct[0].substr(0,1));
@@ -148,6 +163,7 @@ function keyPress(e){
         bmd.cls();
         lv1EnemyLife--;
         lv1EnemyTxt.setText(`x${lv1EnemyLife}`);
+        playerScore = playerScore + 267;
         wordSetup();
     }
 }
@@ -163,6 +179,30 @@ function wordData() {
             }
         );
     }
+}
+
+function LV1mob(){
+    var monsterATK = setInterval(function(){
+        if (lv1EnemyLife == 0) {
+            clearInterval(monsterATK);
+            console.log("monster defeated");
+        } else {
+            if (playerLife == 3) {
+                playerLife--;
+                p1Heart.loadTexture('heartDamage');
+                console.log('atk!');
+            } else if (playerLife == 2) {
+                playerLife--;
+                p2Heart.loadTexture('heartDamage');
+                console.log('atk!');
+            } else if(playerLife == 1) {
+                playerLife--;
+                p3Heart.loadTexture('heartDamage');
+                clearInterval(monsterATK);
+                console.log('game over || score: ' + playerScore);
+            }
+        }
+    }, 10000);
 }
 
 module.exports = {playState, startState};
