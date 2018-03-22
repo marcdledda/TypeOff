@@ -1,6 +1,9 @@
 "use strict";
 
-let n0_preload = require("./n0_preload");
+let n0_preload = require("./n0_preload"),
+    firebase = require('./fb-config'),
+    $ = require('jquery'),
+    login = require("./user");
 
 let game = n0_preload.game;
 let lvOneBG = n0_preload.lvOneBG;
@@ -185,6 +188,7 @@ function keyPress(e){
         if (lv1EnemyLife == 0) {
             game.state.start('lv2');
         } else if (lv2EnemyLife == 0) {
+            playerScore = playerScore + 1013;
             gameOver();
         } else {
             wordSetup();
@@ -327,6 +331,7 @@ function gameOver(){
     gameOverLevelTxt.anchor.set(0.5, 0.5);
 
     gameOverBack = game.add.button(298, 393, 'gameOverBack', backing);
+    postScore();
 }
 
 function backing(){
@@ -341,9 +346,32 @@ function restart(){
     lv2EnemyLife = 6;
 }
 
-// let gameOverScreen = n0_preload.gameOverScreen;
-// let gameOverScoreTxT;
-// let gameOverLevelTxt;
-// let gameOverBack = n0_preload.gameOverBack;
+function postScore(){
+    let scoreObj = buildScore();
+    addScore(scoreObj).then(
+        (resolve) => {
+            console.log('post!');
+        });
+}
+
+function buildScore(){
+    let scoreObj = {
+        score: playerScore,
+        name: login.getName() ? `${login.getName()}` : "Guest",
+        uid: login.getUser() ? `${login.getUser()}` : "UIDguest"
+    };
+    return scoreObj;
+}
+
+function addScore(score){
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/scores.json`,
+        type: 'POST',
+        data: JSON.stringify(score),
+        dataType: 'json'
+    }).done((doneScore) => {
+        return doneScore;
+    });
+}
 
 module.exports = {playState, startState, start2State};

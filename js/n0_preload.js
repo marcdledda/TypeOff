@@ -1,6 +1,7 @@
 "use strict";
 
-let Phaser = require("../phaser.min.js");
+let Phaser = require("../phaser.min.js"),
+    firebase = require('./fb-config');
 
 var game = new Phaser.Game(854, 480, Phaser.CANVAS, null);
 
@@ -17,6 +18,7 @@ let myScoresBTN;
 let followingBTN;
 let leaderboardsBTN;
 let logInBTN;
+let logOutBTN;
 //Play
 let lvOneBG;
 let pauseBTN;
@@ -39,6 +41,10 @@ let gameOver;
 let gameOverBack;
 //Scores
 let logoScores;
+let scoreTxT;
+let scoreGroup;
+let scoreInfo;
+let newScore;
 //Following
 let logoFollowing;
 //Leaderboards
@@ -57,6 +63,23 @@ let getWordData = () => {
             }
         };
         request.open("GET", wordData);
+        request.send();
+    });
+};
+
+let getScoreData = (input) => {
+    return new Promise ((resolve, reject) => {
+        var FB = `${firebase.getFBsettings().databaseURL}/scores.json?orderBy="uid"&equalTo="${input}"`;
+        
+        let request = new XMLHttpRequest();
+
+        request.onload = function() {
+            if (request.status === 200) {
+                let data = JSON.parse(request.responseText);
+                resolve(data);
+            }
+        };
+        request.open("GET", FB);
         request.send();
     });
 };
@@ -83,6 +106,7 @@ let preloadState = {
         game.load.image('followingBTN', 'js/media/BTN_following.png');
         game.load.image('leaderboardsBTN', 'js/media/BTN_leaderboards.png');
         game.load.image('logInBTN', 'js/media/BTN_logIn.png');
+        game.load.image('logOutBTN', 'js/media/BTN_logOut.png');
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
@@ -117,4 +141,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore};
