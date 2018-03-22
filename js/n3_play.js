@@ -13,7 +13,11 @@ let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
 
-let num = 2;
+let gameOverScreen = n0_preload.gameOverScreen;
+let gameOverScoreTxT;
+let gameOverLevelTxt;
+let gameOverBack = n0_preload.gameOverBack;
+
 let bmd;
 let wordLibrary;
 let word = "alba";
@@ -53,6 +57,7 @@ let playState = {
         startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
 
         wordData();
+        restart();
     },
     start: function() {
         if (wordLibrary !== undefined){
@@ -137,7 +142,7 @@ function keyPress(e){
     bmd.cls();
     var x = 0;
     let checker = 0;
-    
+
     // console.log("get start", correct[0].substr(0,1));
     // console.log("get status", correct[0].slice(1,2));
 
@@ -179,6 +184,8 @@ function keyPress(e){
         }
         if (lv1EnemyLife == 0) {
             game.state.start('lv2');
+        } else if (lv2EnemyLife == 0) {
+            gameOver();
         } else {
             wordSetup();
         }
@@ -214,6 +221,7 @@ function LV1mob(){
             p3Heart.loadTexture('heartDamage');
             clearInterval(monsterATK);
             console.log('game over || score: ' + playerScore);
+            gameOver();
         }
     }, 10000);
 }
@@ -282,53 +290,6 @@ let start2State = {
     }
 };
 
-// function keyPress2(e){
-//     bmd.cls();
-//     var x = 0;
-//     // console.log("get start", correct[0].substr(0,1));
-//     // console.log("get status", correct[0].slice(1,2));
-//     let checker = 0;
-
-//     for (let i = 0; i < word.length; i++){
-//         var letter = word.charAt(i);
-//         let j;
-
-//         if (i == 0){
-//             j = 1;
-//         } else {
-//             j = i;
-//         }
-
-//         if (e.key === letter){
-//             if (correct[i].slice(1,2) == "n" && correct[i-1] === undefined || correct[j-1].slice(1,2) !== "n"){
-//                 correct[i] = correct[i].substr(0,1) + `y${i}`;
-//             }
-//         }
-//         if (correct[i].slice(1,2) == "y"){
-//             bmd.context.fillStyle = "#00ff00";
-//             checker++;
-//         } else {
-//             bmd.context.fillStyle = "#ffffff";
-//         }
-//         bmd.context.fillText(letter, x, 25);
-
-//         x += bmd.context.measureText(letter).width;
-//     }
-
-//     if (checker == word.length) {
-//         bmd.cls();
-//         lv2EnemyLife--;
-//         lv2EnemyTxt.setText(`x${lv2EnemyLife}`);
-//         if (lv2EnemyLife == 0) {
-//             // game.state.start('lv2');
-//             console.log('monster dead!');
-//         } else {
-//             wordSetup();
-//         }
-//         playerScore = playerScore + 1013;
-//     }
-// }
-
 function LV2mob(){
     monster2ATK = setInterval(function(){
         if (lv2EnemyLife == 0) {
@@ -348,9 +309,41 @@ function LV2mob(){
                 p3Heart.loadTexture('heartDamage');
                 clearInterval(monster2ATK);
                 console.log('game over || score: ' + playerScore);
+                gameOver();
             }
         }
     }, 10000);
 }
+
+function gameOver(){
+    clearInterval(monster2ATK);
+    pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
+    pauseScreen.anchor.set(0.5, 0.5);
+    gameOverScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'gameOver');
+    gameOverScreen.anchor.set(0.5, 0.5);
+    gameOverScoreTxT = game.add.text(427, 193, `Score: ${playerScore}`, { font: '20px press_start_2pregular', fill: '#000000' });
+    gameOverScoreTxT.anchor.set(0.5, 0.5);
+    gameOverLevelTxt = game.add.text(427, 240, `Level Reached: ${lvSet}`, { font: '20px press_start_2pregular', fill: '#000000' });
+    gameOverLevelTxt.anchor.set(0.5, 0.5);
+
+    gameOverBack = game.add.button(298, 393, 'gameOverBack', backing);
+}
+
+function backing(){
+    game.state.start('menu');
+}
+
+function restart(){
+    playerScore = 0;
+    playerLife = 3;
+    lvSet = 1;
+    lv1EnemyLife = 5;
+    lv2EnemyLife = 6;
+}
+
+// let gameOverScreen = n0_preload.gameOverScreen;
+// let gameOverScoreTxT;
+// let gameOverLevelTxt;
+// let gameOverBack = n0_preload.gameOverBack;
 
 module.exports = {playState, startState, start2State};
