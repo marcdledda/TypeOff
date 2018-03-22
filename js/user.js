@@ -1,7 +1,8 @@
 "use strict";
 let firebase = require("./fb-config"),
 	provider = new firebase.auth.GoogleAuthProvider(),
-	currentUser = null;
+    currentUser = null,
+    displayName = null;
 
 
 function logInGoogle() {
@@ -20,14 +21,23 @@ function getUser() {
   return currentUser;
 }
 
+function setName(val){
+    displayName = val;
+}
+
+function getName(){
+    return displayName;
+}
+
 firebase.auth().onAuthStateChanged(function(user){
-	console.log("onAuthStateChanged", user);
 	if (user){
-		currentUser = user.uid;
+        currentUser = user.uid;
+        displayName = user.displayName;
 	}else{
-		currentUser = null;
+        currentUser = null;
+        displayName = null;
 		console.log("NO USER LOGGED IN");
 	}
 });
 
-module.exports = {logInGoogle, logOut, setUser, getUser};
+module.exports = {logInGoogle, logOut, setUser, getUser, setName, getName};

@@ -21,8 +21,14 @@ let menuState = {
         myScoresBTN = gameShort.add.button(337, 291, 'myScoresBTN', this.myScores, this);
         followingBTN = gameShort.add.button(337, 336, 'followingBTN', this.following, this);
         leaderboardsBTN = gameShort.add.button(307, 381, 'leaderboardsBTN', this.leaderboards, this);
-        logInBTN = gameShort.add.button(427, 436, 'logInBTN', this.logIn, this);
-        logInBTN.anchor.set(0.5, 0.5);
+
+        if (login.getUser() == null){
+            logInBTN = gameShort.add.button(427, 436, 'logInBTN', this.logIn, this);
+            logInBTN.anchor.set(0.5, 0.5);
+        } else{
+            logOutBTN = gameShort.add.button(427, 436, 'logOutBTN', this.logOut, this);
+            logOutBTN.anchor.set(0.5, 0.5);
+        }
     },
     newGame: function() {
         gameShort.state.start('play');
@@ -40,6 +46,7 @@ let menuState = {
         login.logInGoogle()
         .then((result) => {
             login.setUser(result.user.uid);
+            login.setName(result.user.displayName);
             logInBTN.destroy();
             logOutBTN = gameShort.add.button(427, 436, 'logOutBTN', this.logOut, this);
             logOutBTN.anchor.set(0.5, 0.5);
@@ -52,14 +59,5 @@ let menuState = {
         logInBTN.anchor.set(0.5, 0.5);
     }
 };
-
-// function logIn(){
-//     login.logInGoogle()
-//     .then((result) => {
-//     console.log("result from login", result.user.uid);
-//     login.setUser(result.user.uid);
-//     logInBTN.loadTexture('logOutBTN');
-//     });
-// }
 
 module.exports = {menuState};
