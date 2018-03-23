@@ -14,10 +14,16 @@ let leaderState = {
 
         logoLeaderboards = game.add.image(256, 18, 'logoLeaderboards');
         xBTN = game.add.button(23, 18, 'xBTN', this.exit, this);
+
+        leaderboardFill();
     },
     exit: function(){
         game.state.start('menu');
     }
 };
+
+function leaderboardFill(){
+    
+}
 
 module.exports = {leaderState};

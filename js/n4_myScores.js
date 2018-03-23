@@ -19,7 +19,6 @@ let scoreState = {
 
         logoScores = game.add.image(256, 18, 'logoScores');
         xBTN = game.add.button(23, 18, 'xBTN', this.exit, this);
-        // scoreTxt = game.add.text(377, 85, `Scores`, { font: '20px press_start_2pregular', fill: '#FF0000' });
         if (login.getUser() !== null){
             scoreFill();
         }
@@ -56,6 +55,9 @@ function printScores(scores){
         newScore = game.add.text(scoreX, scoreY, `${arrayInput[i].score}`, { font: '20px press_start_2pregular', fill: '#000000' });
         newScore.anchor.set(1,0);
         scoreGroup.add(newScore);
+        if (i === 9) {
+            break;
+        } 
     }
 }
 
