@@ -54,6 +54,7 @@ function printBoard(board){
     arrayInput.sort(function (a,b){
         return b.score - a.score;
     });
+    arrayInput.unshift("Filler");
     infoPos = {between: 16, height:20};
     rankGroup = game.add.group();
     scoreGroup = game.add.group();

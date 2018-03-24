@@ -50,6 +50,7 @@ let menuState = {
             logInBTN.destroy();
             logOutBTN = gameShort.add.button(427, 436, 'logOutBTN', this.logOut, this);
             logOutBTN.anchor.set(0.5, 0.5);
+            // postInfo();
         });
     },
     logOut: function(){
@@ -59,5 +60,15 @@ let menuState = {
         logInBTN.anchor.set(0.5, 0.5);
     }
 };
+
+// function postInfo(){
+//     let infoObj = buildInfo();
+// }
+
+// function buildInfo(){
+//     let infoObj = {
+//         score =
+//     }
+// }
 
 module.exports = {menuState};
