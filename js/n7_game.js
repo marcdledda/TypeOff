@@ -21,6 +21,7 @@ gameShort.state.add('play', n3_play.playState);
     gameShort.state.add('lv3', n3_play.start3State);
     gameShort.state.add('lv4', n3_play.start4State);
     gameShort.state.add('lv5', n3_play.start5State);
+    gameShort.state.add('lv6', n3_play.start6State);
 gameShort.state.add('scores', n4_myScores.scoreState);
 gameShort.state.add('following', n5_following.followState);
 gameShort.state.add('leaderboards', n6_leaderboards.leaderState);
