@@ -3,6 +3,7 @@
 let n0_preload = require("./n0_preload"),
     firebase = require('./fb-config'),
     $ = require('jquery'),
+    Phaser = require("../phaser.min.js"),
     login = require("./user");
 
 let game = n0_preload.game;
@@ -15,6 +16,10 @@ let backToTitleBTN = n0_preload.backToTitleBTN;
 let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
+let transitionTxT;
+let showLV;
+let hideLV;
+let nothingLV;
 
 let gameOverScreen = n0_preload.gameOverScreen;
 let gameOverScoreTxT;
@@ -47,6 +52,78 @@ let p3Heart = n0_preload.p3Heart;
 let heartDamage = n0_preload.heartDamage;
 let playerScore = 0;
 
+function stopTime(){
+    clearInterval(monsterATK);
+    clearInterval(monster2ATK);
+}
+
+//TRANSITIONS
+let transitionState = {
+    create: function() {
+        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
+        lvOneBG.anchor.set(0.5, 0.5);
+        textBar = game.add.image(0, 318, 'textBar');
+
+        pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
+        pauseBTN.scale.setTo(0.534, 0.529);
+
+        playerSprite = game.add.image(278, 247, 'playerSprite');
+        p1Heart = game.add.image(241, 206, 'heart');
+        p2Heart = game.add.image(281, 206, 'heart');
+        p3Heart = game.add.image(318, 206, 'heart');
+
+        game.input.keyboard.addCallbacks(this, keyPress, null, null);
+        game.input.onDown.add(this.pauseMenu);
+
+        if (lv1EnemyLife == 0) {
+            clearInterval(monsterATK);
+        }
+
+        this.levelShow();
+    },
+    pause: function() {
+        game.paused = true;
+        pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
+        pauseScreen.anchor.set(0.5, 0.5);
+        logoPause = game.add.image(330, 123, 'logoPause');
+
+        resumeBTN = game.add.image(352, 277, 'resumeBTN');
+        backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
+    },
+    pauseMenu: function(event){
+        if (game.paused){
+            if(event.x > 352 && event.x < 502 && event.y > 277 && event.y < 302){
+                pauseScreen.destroy();
+                logoPause.destroy();
+                resumeBTN.destroy();
+                backToTitleBTN.destroy();
+                game.paused = false;
+            }
+            if(event.x > 265 && event.x < 590 && event.y > 336 && event.y < 361){
+                game.paused = false;
+                game.state.start('menu');
+            }
+        }
+    },
+    levelShow: function(){
+        transitionTxT = game.add.text(377, 112, `Level ${lvSet}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        transitionTxT.alpha = 0;
+        showLV = game.add.tween(transitionTxT).to( { alpha: 1 }, 250, Phaser.Easing.Linear.None);
+        nothingLV = game.add.tween(transitionTxT).to( { y:112 , alpha: 1 }, 1000, Phaser.Easing.Linear.None);
+        hideLV = game.add.tween(transitionTxT).to( { y:172 , alpha: 0 }, 1000, Phaser.Easing.Linear.None);
+        hideLV.onComplete.addOnce(function(){
+            if (lvSet == 1) {
+                game.state.start('start');
+            } else if (lvSet == 2) {
+                game.state.start('lv2');
+            }
+        },this);
+        showLV.chain(nothingLV);
+        nothingLV.chain(hideLV);
+        showLV.start();
+    }
+};
+
 //TUTORIAL PART
 let playState = {
     create: function() {
@@ -64,7 +141,7 @@ let playState = {
     },
     start: function() {
         if (wordLibrary !== undefined){
-            game.state.start('start');
+            game.state.start('transition');
         }
     }
 };
@@ -115,6 +192,7 @@ let startState = {
             }
             if(event.x > 265 && event.x < 590 && event.y > 336 && event.y < 361){
                 game.paused = false;
+                stopTime();
                 game.state.start('menu');
             }
         }
@@ -142,6 +220,9 @@ function wordSetup(){
 }
 
 function keyPress(e){
+    if (e.key == 'Escape' && game.paused == false){
+        startState.pause();
+    }
     bmd.cls();
     var x = 0;
     let checker = 0;
@@ -186,7 +267,8 @@ function keyPress(e){
             lv2EnemyTxt.setText(`x${lv2EnemyLife}`);
         }
         if (lv1EnemyLife == 0) {
-            game.state.start('lv2');
+            lvSet = 2;
+            game.state.start('transition');
         } else if (lv2EnemyLife == 0) {
             playerScore = playerScore + 1013;
             gameOver();
@@ -235,7 +317,6 @@ let start2State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
-        lvSet = 2;
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -244,7 +325,6 @@ let start2State = {
         enemyHeart = game.add.image(507, 116, 'heart');
         swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        clearInterval(monsterATK);
         lv1EnemyLife = 5;
         LV2mob();
 
@@ -288,6 +368,7 @@ let start2State = {
             }
             if(event.x > 265 && event.x < 590 && event.y > 336 && event.y < 361){
                 game.paused = false;
+                stopTime();
                 game.state.start('menu');
             }
         }
@@ -374,4 +455,4 @@ function addScore(score){
     });
 }
 
-module.exports = {playState, startState, start2State};
+module.exports = {playState, startState, start2State, transitionState};
