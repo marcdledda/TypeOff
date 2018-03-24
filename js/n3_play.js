@@ -35,42 +35,42 @@ let lvSet = 1;
 
 let forestMonster = n0_preload.forestMonster;
 let lv1EnemyTxt;
-let lv1EnemyLife = 5;
+let lv1EnemyLife = 2;
 let enemyHeart = n0_preload.enemyHeart;
 let monsterATK;
 
 let lv2EnemyTxt;
-let lv2EnemyLife = 9;
+let lv2EnemyLife = 2;
 let swampMonster = n0_preload.swampMonster;
 let monster2ATK;
 
 let lv3EnemyTxt;
-let lv3EnemyLife = 14;
+let lv3EnemyLife = 2;
 // let swampMonster = n0_preload.swampMonster;
 let monster3ATK;
 
 let lv4EnemyTxt;
-let lv4EnemyLife = 21;
+let lv4EnemyLife = 2;
 // let swampMonster = n0_preload.swampMonster;
 let monster4ATK;
 
 let lv5EnemyTxt;
-let lv5EnemyLife = 30;
+let lv5EnemyLife = 2;
 // let swampMonster = n0_preload.swampMonster;
 let monster5ATK;
 
 let lv6EnemyTxt;
-let lv6EnemyLife = 41;
+let lv6EnemyLife = 2;
 // let swampMonster = n0_preload.swampMonster;
 let monster6ATK;
 
 let lv7EnemyTxt;
-let lv7EnemyLife = 56;
+let lv7EnemyLife = 2;
 // let swampMonster = n0_preload.swampMonster;
 let monster7ATK;
 
 let lv8EnemyTxt;
-let lv8EnemyLife = 75;
+let lv8EnemyLife = 2;
 // let swampMonster = n0_preload.swampMonster;
 let monster8ATK;
 
@@ -86,6 +86,7 @@ function stopTime(){
     clearInterval(monsterATK);
     clearInterval(monster2ATK);
     clearInterval(monster3ATK);
+    clearInterval(monster4ATK);
 }
 
 //TRANSITIONS
@@ -122,6 +123,9 @@ let transitionState = {
         if (lv2EnemyLife == 0) {
             clearInterval(monster2ATK);
         }
+        if (lv3EnemyLife == 0 ) {
+            clearInterval(monster3ATK);
+        }
 
         this.levelShow();
     },
@@ -154,7 +158,7 @@ let transitionState = {
         transitionTxT.alpha = 0;
         showLV = game.add.tween(transitionTxT).to( { alpha: 1 }, 250, Phaser.Easing.Linear.None);
         nothingLV = game.add.tween(transitionTxT).to( { y:112 , alpha: 1 }, 1000, Phaser.Easing.Linear.None);
-        hideLV = game.add.tween(transitionTxT).to( { y:172 , alpha: 0 }, 1000, Phaser.Easing.Linear.None);
+        hideLV = game.add.tween(transitionTxT).to( { y:137 , alpha: 0 }, 1000, Phaser.Easing.Linear.None);
         hideLV.onComplete.addOnce(function(){
             if (lvSet == 1) {
                 game.state.start('start');
@@ -162,6 +166,8 @@ let transitionState = {
                 game.state.start('lv2');
             } else if (lvSet == 3) {
                 game.state.start('lv3');
+            } else if (lvSet == 4) {
+                game.state.start('lv4');
             }
         },this);
         showLV.chain(nothingLV);
@@ -276,7 +282,7 @@ let start2State = {
         enemyHeart = game.add.image(507, 116, 'heart');
         swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        lv1EnemyLife = 5;
+        lv1EnemyLife = 2;
         LV2mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
@@ -344,7 +350,7 @@ function LV2mob(){
                 gameOver();
             }
         }
-    }, 15000);
+    }, 10000);
 }
 
 // LV 3
@@ -361,7 +367,7 @@ let start3State = {
         enemyHeart = game.add.image(507, 116, 'heart');
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        lv2EnemyLife = 6;
+        lv2EnemyLife = 2;
         LV3mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
@@ -429,7 +435,92 @@ function LV3mob(){
                 gameOver();
             }
         }
-    }, 20000);
+    }, 10000);
+}
+
+// LV 3
+let start4State = {
+    create: function() {
+        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
+        lvOneBG.anchor.set(0.5, 0.5);
+        textBar = game.add.image(0, 318, 'textBar');
+
+        pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
+        pauseBTN.scale.setTo(0.534, 0.529);
+
+        lv4EnemyTxt = game.add.text(507, 96, `x${lv4EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
+        enemyHeart = game.add.image(507, 116, 'heart');
+        // swampMonster = game.add.image(547, 60, 'swampMonster');
+
+        lv3EnemyLife = 2;
+        LV4mob();
+
+        playerSprite = game.add.image(278, 247, 'playerSprite');
+        if (playerLife == 3){
+            p1Heart = game.add.image(241, 206, 'heart');
+            p2Heart = game.add.image(281, 206, 'heart');
+            p3Heart = game.add.image(318, 206, 'heart');
+        } else if (playerLife == 2){
+            p1Heart = game.add.image(241, 206, 'heartDamage');
+            p2Heart = game.add.image(281, 206, 'heart');
+            p3Heart = game.add.image(318, 206, 'heart');
+        } else if (playerLife == 1){
+            p1Heart = game.add.image(241, 206, 'heartDamage');
+            p2Heart = game.add.image(281, 206, 'heartDamage');
+            p3Heart = game.add.image(318, 206, 'heart');
+        }
+        
+        wordSetup();
+
+        game.input.keyboard.addCallbacks(this, keyPress, null, null);
+        game.input.onDown.add(this.pauseMenu);
+    },
+    pause: function() {
+        game.paused = true;
+        pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
+        pauseScreen.anchor.set(0.5, 0.5);
+        logoPause = game.add.image(330, 123, 'logoPause');
+
+        resumeBTN = game.add.image(352, 277, 'resumeBTN');
+        backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
+    },
+    pauseMenu: function(event){
+        if (game.paused){
+            if(event.x > 352 && event.x < 502 && event.y > 277 && event.y < 302){
+                pauseScreen.destroy();
+                logoPause.destroy();
+                resumeBTN.destroy();
+                backToTitleBTN.destroy();
+                game.paused = false;
+            }
+            if(event.x > 265 && event.x < 590 && event.y > 336 && event.y < 361){
+                game.paused = false;
+                stopTime();
+                game.state.start('menu');
+            }
+        }
+    }
+};
+
+function LV4mob(){
+    monster4ATK = setInterval(function(){
+        if (lv4EnemyLife == 0) {
+            clearInterval(monster4ATK);
+        } else {
+            if (playerLife == 3) {
+                playerLife--;
+                p1Heart.loadTexture('heartDamage');
+            } else if (playerLife == 2) {
+                playerLife--;
+                p2Heart.loadTexture('heartDamage');
+            } else if(playerLife == 1) {
+                playerLife--;
+                p3Heart.loadTexture('heartDamage');
+                clearInterval(monster4ATK);
+                gameOver();
+            }
+        }
+    }, 10000);
 }
 
 ///////////////
@@ -516,6 +607,9 @@ function keyPress(e){
         } else if (lvSet == 3) {
             lv3EnemyLife--;
             lv3EnemyTxt.setText(`x${lv3EnemyLife}`);
+        } else if (lvSet == 4) {
+            lv4EnemyLife--;
+            lv4EnemyTxt.setText(`x${lv4EnemyLife}`);
         }
 
 
@@ -526,12 +620,15 @@ function keyPress(e){
             lvSet = 3;
             game.state.start('transition');
         } else if (lv3EnemyLife == 0) {
-            playerScore = playerScore + 1013;
+            lvSet = 4;
+            game.state.start('transition');
+        } else if (lv4EnemyLife == 0) {
+            playerScore = playerScore + 452;
             gameOver();
         } else {
             wordSetup();
         }
-        playerScore = playerScore + 1013;
+        playerScore = playerScore + 452;
     }
 }
 // WORD PART //
@@ -559,14 +656,14 @@ function restart(){
     playerScore = 0;
     playerLife = 3;
     lvSet = 1;
-    lv1EnemyLife = 5;
-    lv2EnemyLife = 6;
-    lv3EnemyLife = 7;
-    lv4EnemyLife = 8;
-    lv5EnemyLife = 10;
-    lv6EnemyLife = 12;
-    lv7EnemyLife = 14;
-    lv8EnemyLife = 17;
+    lv1EnemyLife = 2;
+    lv2EnemyLife = 2;
+    lv3EnemyLife = 2;
+    lv4EnemyLife = 2;
+    lv5EnemyLife = 2;
+    lv6EnemyLife = 2;
+    lv7EnemyLife = 2;
+    lv8EnemyLife = 2;
 }
 
 function postScore(){
@@ -597,4 +694,4 @@ function addScore(score){
     });
 }
 
-module.exports = {playState, startState, start2State, transitionState, start3State};
+module.exports = {playState, startState, start2State, transitionState, start3State, start4State};
