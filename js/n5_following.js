@@ -1,6 +1,7 @@
 "use strict";
 
-let n0_preload = require("./n0_preload");
+let n0_preload = require("./n0_preload"),
+    $ = require('jquery');
 
 let game = n0_preload.game;
 let logoFollowing = n0_preload.logoFollowing;
@@ -14,10 +15,25 @@ let followState = {
 
         logoFollowing = game.add.image(256, 18, 'logoFollowing');
         xBTN = game.add.button(23, 18, 'xBTN', this.exit, this);
+        hided();
+
     },
     exit: function(){
         game.state.start('menu');
-    }
+        $('#input').hide();
+    },
 };
+
+function hided(){
+    var x = $('canvas').offset();
+    console.log("X:" + x.left + "Y:" + x.top);
+    var d = document.getElementById('input');
+    d.style.position = "absolute";
+    let xSet = x.left + 326;
+    let ySet = x.top + 73;
+    d.style.left = xSet+'px';
+    d.style.top = ySet+'px';
+    $('#input').show();
+}
 
 module.exports = {followState};
