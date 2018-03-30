@@ -1,6 +1,7 @@
 "use strict";
 
 let n0_preload = require("./n0_preload"),
+    n2_mainMenu = require("./n2_mainMenu"),
     firebase = require('./fb-config'),
     $ = require('jquery'),
     Phaser = require("../phaser.min.js"),
@@ -1089,7 +1090,37 @@ function addScore(score){
 }
 
 function replaceHiScore(){
-    
+    let currentUser = login.getUser();
+    n0_preload.getScoreData(currentUser).then(
+        (resolve) => {
+            let arrayInput = Object.values(resolve);
+            arrayInput.sort(function (a,b){
+                return b.score - a.score;
+            });
+            let userObj = arrayInput[0];
+            replaceHiScoreTwo(userObj);
+        }
+    );
+}
+
+function replaceHiScoreTwo(userObj){
+    let IDjson = n2_mainMenu.getIDjson();
+    editUser(userObj, IDjson).then(
+        (resolve) => {
+            console.log("k");
+        }
+    );
+}
+
+function editUser(data, user) {
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/user/${user}.json`,
+        type: 'PUT',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    }).done((userData) => {
+        return userData;
+    });
 }
 
 module.exports = {playState, startState, start2State, transitionState, start3State, start4State, start5State, start6State, start7State, start8State};

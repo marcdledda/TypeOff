@@ -57,7 +57,6 @@ let menuState = {
         });
     },
     logOut: function(){
-        console.log(IDjson);
         login.logOut();
         logOutBTN.destroy();
         logInBTN = gameShort.add.button(427, 436, 'logInBTN', this.logIn, this);
@@ -132,4 +131,8 @@ function postUser(user) {
     });
 }
 
-module.exports = {menuState};
+function getIDjson(){
+    return IDjson;
+}
+
+module.exports = {menuState, getIDjson};
