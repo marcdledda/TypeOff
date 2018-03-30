@@ -45,6 +45,7 @@ function printScores(scores){
     arrayInput.sort(function (a,b){
         return b.score - a.score;
     });
+    console.log(arrayInput);
     scoreTxt = game.add.text(477, 85, `Scores`, { font: '20px press_start_2pregular', fill: '#000000' });
     scoreTxt.anchor.set(1,0);
     scoreInfo = {between: 16, height:20};

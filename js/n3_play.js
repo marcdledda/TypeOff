@@ -1097,6 +1097,7 @@ function replaceHiScore(){
             arrayInput.sort(function (a,b){
                 return b.score - a.score;
             });
+            arrayInput[0].photo = login.getPhoto();
             let userObj = arrayInput[0];
             replaceHiScoreTwo(userObj);
         }

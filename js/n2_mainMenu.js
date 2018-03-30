@@ -92,13 +92,15 @@ function getScores(){
                 let noUserObj = {
                     score: 0,
                     name: login.getName(),
-                    uid: login.getUser()
+                    uid: login.getUser(),
+                    photo: login.getPhoto()
                 };
                 posting(noUserObj);
             } else {
                 arrayInput.sort(function (a,b){
                     return b.score - a.score;
                 });
+                arrayInput[0].photo = login.getPhoto();
                 let userObj = arrayInput[0];
                 posting(userObj);
             }
