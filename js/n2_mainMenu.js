@@ -50,7 +50,7 @@ let menuState = {
             logInBTN.destroy();
             logOutBTN = gameShort.add.button(427, 436, 'logOutBTN', this.logOut, this);
             logOutBTN.anchor.set(0.5, 0.5);
-            // postInfo();
+            startPost();
         });
     },
     logOut: function(){
@@ -61,14 +61,21 @@ let menuState = {
     }
 };
 
-// function postInfo(){
-//     let infoObj = buildInfo();
-// }
-
-// function buildInfo(){
-//     let infoObj = {
-//         score =
-//     }
-// }
+function startPost(){
+    let currentUser = login.getUser();
+    n0_preload.checkUser(currentUser).then(
+        (resolve) => {
+            let array = Object.values(resolve);
+            if (array.length == 0) {
+                console.log("tis true");
+            } else {
+                console.log("tis not true");
+            }
+        },
+        (reject) => {
+            console.log("reject");
+        }
+    );
+}
 
 module.exports = {menuState};
