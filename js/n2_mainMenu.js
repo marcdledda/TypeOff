@@ -1,7 +1,9 @@
 "use strict";
 
 let n0_preload = require("./n0_preload"),
-    login = require("./user");
+    login = require("./user"),
+    $ = require('jquery'),
+    firebase = require('./fb-config');
 
 let gameShort = n0_preload.game;
 let menuIMG = n0_preload.menuIMG;
@@ -68,6 +70,7 @@ function startPost(){
             let array = Object.values(resolve);
             if (array.length == 0) {
                 console.log("tis true");
+                getScores();
             } else {
                 console.log("tis not true");
             }
@@ -76,6 +79,45 @@ function startPost(){
             console.log("reject");
         }
     );
+}
+
+function getScores(){
+    let currentUser = login.getUser();
+    n0_preload.getScoreData(currentUser).then(
+        (resolve) => {
+            let arrayInput = Object.values(resolve);
+            arrayInput.sort(function (a,b){
+                return b.score - a.score;
+            });
+            let userObj = arrayInput[0];
+            posting(userObj);
+        },
+        (reject) => {
+            console.log("second step reject");
+        }
+    );
+}
+
+function posting(input){
+    postUser(input).then(
+        (resolve) => {
+            console.log("doneing");
+        },
+        (reject) => {
+            console.log("third reject");
+        }
+    );
+}
+
+function postUser(user) {
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/user.json`,
+        type: 'POST',
+        data: JSON.stringify(user),
+        dataType: 'json'
+    }).done((doneUser) => {
+        return doneUser;
+    });
 }
 
 module.exports = {menuState};
