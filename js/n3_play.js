@@ -1060,8 +1060,12 @@ function postScore(){
     let scoreObj = buildScore();
     addScore(scoreObj).then(
         (resolve) => {
+            if (login.getUser() !== null){
+                replaceHiScore();
+            }
             console.log('post!');
-        });
+        }
+    );
 }
 
 function buildScore(){
@@ -1082,6 +1086,10 @@ function addScore(score){
     }).done((doneScore) => {
         return doneScore;
     });
+}
+
+function replaceHiScore(){
+    
 }
 
 module.exports = {playState, startState, start2State, transitionState, start3State, start4State, start5State, start6State, start7State, start8State};

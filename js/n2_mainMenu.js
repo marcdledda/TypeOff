@@ -13,6 +13,7 @@ let followingBTN = n0_preload.followingBTN;
 let leaderboardsBTN = n0_preload.leaderboardsBTN;
 let logInBTN = n0_preload.logInBTN;
 let logOutBTN = n0_preload.logOutBTN;
+let IDjson =n0_preload.IDjson;
 
 let menuState = {
     create: function() {
@@ -56,6 +57,7 @@ let menuState = {
         });
     },
     logOut: function(){
+        console.log(IDjson);
         login.logOut();
         logOutBTN.destroy();
         logInBTN = gameShort.add.button(427, 436, 'logInBTN', this.logIn, this);
@@ -69,10 +71,11 @@ function startPost(){
         (resolve) => {
             let array = Object.values(resolve);
             if (array.length == 0) {
-                console.log("tis true");
                 getScores();
             } else {
-                console.log("tis not true");
+                for (let item in resolve){
+                    IDjson = item;
+                }
             }
         },
         (reject) => {
@@ -86,11 +89,20 @@ function getScores(){
     n0_preload.getScoreData(currentUser).then(
         (resolve) => {
             let arrayInput = Object.values(resolve);
-            arrayInput.sort(function (a,b){
-                return b.score - a.score;
-            });
-            let userObj = arrayInput[0];
-            posting(userObj);
+            if (arrayInput.length == 0){
+                let noUserObj = {
+                    score: 0,
+                    name: login.getName(),
+                    uid: login.getUser()
+                };
+                posting(noUserObj);
+            } else {
+                arrayInput.sort(function (a,b){
+                    return b.score - a.score;
+                });
+                let userObj = arrayInput[0];
+                posting(userObj);
+            }
         },
         (reject) => {
             console.log("second step reject");
@@ -101,7 +113,7 @@ function getScores(){
 function posting(input){
     postUser(input).then(
         (resolve) => {
-            console.log("doneing");
+            IDjson = resolve.name;
         },
         (reject) => {
             console.log("third reject");
