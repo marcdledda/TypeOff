@@ -2,6 +2,7 @@
 
 let n0_preload = require("./n0_preload"),
     $ = require('jquery'),
+    firebase = require('./fb-config'),
     login = require("./user");
 
 let game = n0_preload.game;
@@ -16,6 +17,10 @@ let userPhoto;
 let photoPreload;
 let searchUsername;
 let searchHiScore;
+let followIDjson;
+let followCheck;
+var search;
+let searchAmount = 0;
 
 let followState = {
     create: function(){
@@ -33,13 +38,15 @@ let followState = {
     exit: function(){
         game.state.start('menu');
         $('#input').hide();
+        followCheck = undefined;
+        searchAmount = 0;
     },
 };
 
 function keyPress(e){
     if (login.getUser() !== null && e.which === 13 || e.keyCode == 13){
-        var search = document.getElementById('input').value;
-        if (search !== "") {
+        search = document.getElementById('input').value;
+        if (search !== "" && search !== login.getName()) {
             n0_preload.searchUser(search).then(
                 (resolve) => {
                     postInfo(resolve);
@@ -50,12 +57,22 @@ function keyPress(e){
 }
 
 function postInfo(input){
-    console.log(input);
     let arrayInput = Object.values(input);
-    console.log(arrayInput);
     searchData = arrayInput;
+    followData = arrayInput;
 
     game.load.image('userIMG', `${arrayInput[0].photo}`);
+    searchAmount++;
+    if (searchAmount > 1) {
+        userPhoto.destroy();
+        searchUsername.destroy();
+        searchHiScore.destroy();
+        if (followCheck == true) {
+            unfollowBTN.destroy();
+        } else {
+            followBTN.destroy();
+        }
+    }
     game.load.start();
 }
 
@@ -64,12 +81,65 @@ function postInfo2(){
     userPhoto.scale.setTo(0.137, 0.137);
     searchUsername = game.add.text(341, 111, `${searchData[0].name}`, { font: '20px press_start_2pregular', fill: '#000000' });
     searchHiScore = game.add.text(341, 145, `Highscore:${searchData[0].score}`, { font: '20px press_start_2pregular', fill: '#000000' });
-    let followX = searchUsername.width + 356;
-    followBTN = game.add.button(followX, 116, 'follow', followUser);
+    setButton();
 }
 
 function followUser(){
-    console.log("followed!");
+    let followObj = buildFollow();
+    followFB(followObj).then(
+        (resolve) => {
+            let array = Object.values(resolve);
+            followIDjson = array;
+            setupUnfollowUser();
+        }
+    );
+}
+
+function buildFollow(){
+    let followObj = {
+        followScore: followData[0].score,
+        followName: followData[0].name,
+        followPhoto: followData[0].photo,
+        name: login.getName(),
+        uid: login.getUser()
+    };
+    return followObj;
+}
+
+function followFB(follow){
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/followers.json`,
+        type: 'POST',
+        data: JSON.stringify(follow),
+        dataType: 'json'
+    }).done((doneFollow) => {
+        return doneFollow;
+    });
+}
+
+function setupUnfollowUser(){
+    followBTN.destroy();
+    let followX = searchUsername.width + 356;
+    unfollowBTN = game.add.button(followX, 116, 'unfollow', unfollowUser);
+}
+
+function unfollowUser(){
+    deleteFollow(followIDjson).then(
+        (resolve) => {
+            unfollowBTN.destroy();
+            let followX = searchUsername.width + 356;
+            followBTN = game.add.button(followX, 116, 'follow', followUser);
+        }
+    );
+}
+
+function deleteFollow(input) {
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/followers/${input}.json`,
+        type: 'DELETE'
+    }).done((data) => {
+        return data;
+    });
 }
 
 function showInput(){
@@ -82,5 +152,50 @@ function showInput(){
     d.style.top = ySet+'px';
     $('#input').show();
 }
+
+function setButton(){
+    let currentUser = login.getUser();
+    checkFollow(currentUser).then(
+        (resolve) => {
+            checkUser(resolve);
+        }
+    );
+}
+
+function checkUser(input){
+    console.log("input", input);
+    let arrayInput = Object.values(input);
+    for (let item in arrayInput) {
+        let fullItem = arrayInput[item];
+        console.log("fullItem", fullItem);
+        if (fullItem.followName == search){
+            followCheck = true;
+        }
+    }
+    if (followCheck == true){
+        let followX = searchUsername.width + 356;
+        unfollowBTN = game.add.button(followX, 116, 'unfollow', unfollowUser);   
+    } else {
+        let followX = searchUsername.width + 356;
+        followBTN = game.add.button(followX, 116, 'follow', followUser);
+    }
+}
+
+let checkFollow = (input) => {
+    return new Promise ((resolve, reject) => {
+        var FB = `${firebase.getFBsettings().databaseURL}/followers.json?orderBy="uid"&equalTo="${input}"`;
+        
+        let request = new XMLHttpRequest();
+
+        request.onload = function() {
+            if (request.status === 200) {
+                let data = JSON.parse(request.responseText);
+                resolve(data);
+            }
+        };
+        request.open("GET", FB);
+        request.send();
+    });
+};
 
 module.exports = {followState};
