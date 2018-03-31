@@ -8,9 +8,14 @@ let game = n0_preload.game;
 let logoFollowing = n0_preload.logoFollowing;
 let xBTN = n0_preload.xBTN;
 let defaultMenu = n0_preload.defaultMenu;
+let followBTN;
+let unfollowBTN;
+let searchData;
 let followData;
 let userPhoto;
 let photoPreload;
+let searchUsername;
+let searchHiScore;
 
 let followState = {
     create: function(){
@@ -21,6 +26,7 @@ let followState = {
 
         logoFollowing = game.add.image(256, 18, 'logoFollowing');
         xBTN = game.add.button(23, 18, 'xBTN', this.exit, this);
+
         showInput();
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
     },
@@ -46,16 +52,24 @@ function keyPress(e){
 function postInfo(input){
     console.log(input);
     let arrayInput = Object.values(input);
-    console.log(arrayInput[0].photo);
+    console.log(arrayInput);
+    searchData = arrayInput;
 
     game.load.image('userIMG', `${arrayInput[0].photo}`);
     game.load.start();
-    // postInfo2();
 }
 
 function postInfo2(){
     userPhoto = game.add.image(256, 103, 'userIMG');
     userPhoto.scale.setTo(0.137, 0.137);
+    searchUsername = game.add.text(341, 111, `${searchData[0].name}`, { font: '20px press_start_2pregular', fill: '#000000' });
+    searchHiScore = game.add.text(341, 145, `Highscore:${searchData[0].score}`, { font: '20px press_start_2pregular', fill: '#000000' });
+    let followX = searchUsername.width + 356;
+    followBTN = game.add.button(followX, 116, 'follow', followUser);
+}
+
+function followUser(){
+    console.log("followed!");
 }
 
 function showInput(){

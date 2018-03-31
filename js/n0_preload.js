@@ -183,6 +183,8 @@ let preloadState = {
 
         //Following
         game.load.image('logoFollowing', 'js/media/logoFollowing.png');
+        game.load.image('follow', 'js/media/BTN_follow.png');
+        game.load.image('unfollow', 'js/media/BTN_unfollow.png');
 
         //Leaderboards
         game.load.image('logoLeaderboards', 'js/media/logoLeaderboards.png');
