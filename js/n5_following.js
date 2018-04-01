@@ -88,8 +88,10 @@ function followUser(){
     let followObj = buildFollow();
     followFB(followObj).then(
         (resolve) => {
-            let array = Object.values(resolve);
-            setupUnfollowUser();
+            followBTN.destroy();
+            followCheck = true;
+            let followX = searchUsername.width + 356;
+            unfollowBTN = game.add.button(followX, 116, 'unfollow', unfollowUser);
         }
     );
 }
@@ -116,18 +118,12 @@ function followFB(follow){
     });
 }
 
-function setupUnfollowUser(){
-    followBTN.destroy();
-    let followX = searchUsername.width + 356;
-    unfollowBTN = game.add.button(followX, 116, 'unfollow', unfollowUser);
-}
-
 function unfollowUser(){
     let theID = getID();
-    console.log(theID);
     deleteFollow(theID).then(
         (resolve) => {
             unfollowBTN.destroy();
+            followCheck = false;
             let followX = searchUsername.width + 356;
             followBTN = game.add.button(followX, 116, 'follow', followUser);
         }
@@ -169,17 +165,32 @@ function setButton(){
 
 function checkUser(input){
     let arrayInput = Object.values(input);
+    console.log("input", input);
+    console.log("arrayInput", arrayInput);
+    let i = 0;
+    let j = 0;
+    for (let item in arrayInput) {
+        let fullItem = arrayInput[item];
+        if (fullItem.followName == search){
+            followCheck = true;
+            break;
+        } else {
+            i++;
+        }
+        if (fullItem.followName !== search){
+            followCheck = false;
+        } 
+    }
+
     for (let item2 in input){
-        for (let item in arrayInput) {
-            let fullItem = arrayInput[item];
-            console.log("fullItem", fullItem);
-            console.log("IDjson", item2);
-            if (fullItem.followName == search){
-                followCheck = true;
-                followIDjson = item2;
-            }
+        followIDjson = item2;
+        if (j == i){
+            break;
+        } else {
+            j++;
         }
     }
+
     if (followCheck == true){
         let followX = searchUsername.width + 356;
         unfollowBTN = game.add.button(followX, 116, 'unfollow', unfollowUser);   
