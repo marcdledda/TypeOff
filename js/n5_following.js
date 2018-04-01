@@ -62,17 +62,17 @@ function postInfo(input){
     followData = arrayInput;
 
     game.load.image('userIMG', `${arrayInput[0].photo}`);
-    searchAmount++;
-    if (searchAmount > 1) {
+    if (searchAmount >= 1) {
         userPhoto.destroy();
         searchUsername.destroy();
         searchHiScore.destroy();
         if (followCheck == true) {
             unfollowBTN.destroy();
-        } else {
+        } else if (followCheck !== true) {
             followBTN.destroy();
         }
     }
+    searchAmount++;
     game.load.start();
 }
 
@@ -89,7 +89,6 @@ function followUser(){
     followFB(followObj).then(
         (resolve) => {
             let array = Object.values(resolve);
-            followIDjson = array;
             setupUnfollowUser();
         }
     );
@@ -124,13 +123,19 @@ function setupUnfollowUser(){
 }
 
 function unfollowUser(){
-    deleteFollow(followIDjson).then(
+    let theID = getID();
+    console.log(theID);
+    deleteFollow(theID).then(
         (resolve) => {
             unfollowBTN.destroy();
             let followX = searchUsername.width + 356;
             followBTN = game.add.button(followX, 116, 'follow', followUser);
         }
     );
+}
+
+function getID(){
+    return followIDjson;
 }
 
 function deleteFollow(input) {
@@ -163,13 +168,16 @@ function setButton(){
 }
 
 function checkUser(input){
-    console.log("input", input);
     let arrayInput = Object.values(input);
-    for (let item in arrayInput) {
-        let fullItem = arrayInput[item];
-        console.log("fullItem", fullItem);
-        if (fullItem.followName == search){
-            followCheck = true;
+    for (let item2 in input){
+        for (let item in arrayInput) {
+            let fullItem = arrayInput[item];
+            console.log("fullItem", fullItem);
+            console.log("IDjson", item2);
+            if (fullItem.followName == search){
+                followCheck = true;
+                followIDjson = item2;
+            }
         }
     }
     if (followCheck == true){
