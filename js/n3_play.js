@@ -1,6 +1,7 @@
 "use strict";
 
 let n0_preload = require("./n0_preload"),
+    n2_mainMenu = require("./n2_mainMenu"),
     firebase = require('./fb-config'),
     $ = require('jquery'),
     Phaser = require("../phaser.min.js"),
@@ -1060,8 +1061,12 @@ function postScore(){
     let scoreObj = buildScore();
     addScore(scoreObj).then(
         (resolve) => {
+            if (login.getUser() !== null){
+                replaceHiScore();
+            }
             console.log('post!');
-        });
+        }
+    );
 }
 
 function buildScore(){
@@ -1081,6 +1086,41 @@ function addScore(score){
         dataType: 'json'
     }).done((doneScore) => {
         return doneScore;
+    });
+}
+
+function replaceHiScore(){
+    let currentUser = login.getUser();
+    n0_preload.getScoreData(currentUser).then(
+        (resolve) => {
+            let arrayInput = Object.values(resolve);
+            arrayInput.sort(function (a,b){
+                return b.score - a.score;
+            });
+            arrayInput[0].photo = login.getPhoto();
+            let userObj = arrayInput[0];
+            replaceHiScoreTwo(userObj);
+        }
+    );
+}
+
+function replaceHiScoreTwo(userObj){
+    let IDjson = n2_mainMenu.getIDjson();
+    editUser(userObj, IDjson).then(
+        (resolve) => {
+            console.log("k");
+        }
+    );
+}
+
+function editUser(data, user) {
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/user/${user}.json`,
+        type: 'PUT',
+        data: JSON.stringify(data),
+        dataType: 'json'
+    }).done((userData) => {
+        return userData;
     });
 }
 

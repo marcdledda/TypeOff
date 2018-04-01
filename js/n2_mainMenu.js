@@ -1,7 +1,9 @@
 "use strict";
 
 let n0_preload = require("./n0_preload"),
-    login = require("./user");
+    login = require("./user"),
+    $ = require('jquery'),
+    firebase = require('./fb-config');
 
 let gameShort = n0_preload.game;
 let menuIMG = n0_preload.menuIMG;
@@ -11,6 +13,7 @@ let followingBTN = n0_preload.followingBTN;
 let leaderboardsBTN = n0_preload.leaderboardsBTN;
 let logInBTN = n0_preload.logInBTN;
 let logOutBTN = n0_preload.logOutBTN;
+let IDjson =n0_preload.IDjson;
 
 let menuState = {
     create: function() {
@@ -50,7 +53,7 @@ let menuState = {
             logInBTN.destroy();
             logOutBTN = gameShort.add.button(427, 436, 'logOutBTN', this.logOut, this);
             logOutBTN.anchor.set(0.5, 0.5);
-            // postInfo();
+            startPost();
         });
     },
     logOut: function(){
@@ -61,14 +64,77 @@ let menuState = {
     }
 };
 
-// function postInfo(){
-//     let infoObj = buildInfo();
-// }
+function startPost(){
+    let currentUser = login.getUser();
+    n0_preload.checkUser(currentUser).then(
+        (resolve) => {
+            let array = Object.values(resolve);
+            if (array.length == 0) {
+                getScores();
+            } else {
+                for (let item in resolve){
+                    IDjson = item;
+                }
+            }
+        },
+        (reject) => {
+            console.log("reject");
+        }
+    );
+}
 
-// function buildInfo(){
-//     let infoObj = {
-//         score =
-//     }
-// }
+function getScores(){
+    let currentUser = login.getUser();
+    n0_preload.getScoreData(currentUser).then(
+        (resolve) => {
+            let arrayInput = Object.values(resolve);
+            if (arrayInput.length == 0){
+                let noUserObj = {
+                    score: 0,
+                    name: login.getName(),
+                    uid: login.getUser(),
+                    photo: login.getPhoto()
+                };
+                posting(noUserObj);
+            } else {
+                arrayInput.sort(function (a,b){
+                    return b.score - a.score;
+                });
+                arrayInput[0].photo = login.getPhoto();
+                let userObj = arrayInput[0];
+                posting(userObj);
+            }
+        },
+        (reject) => {
+            console.log("second step reject");
+        }
+    );
+}
 
-module.exports = {menuState};
+function posting(input){
+    postUser(input).then(
+        (resolve) => {
+            IDjson = resolve.name;
+        },
+        (reject) => {
+            console.log("third reject");
+        }
+    );
+}
+
+function postUser(user) {
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/user.json`,
+        type: 'POST',
+        data: JSON.stringify(user),
+        dataType: 'json'
+    }).done((doneUser) => {
+        return doneUser;
+    });
+}
+
+function getIDjson(){
+    return IDjson;
+}
+
+module.exports = {menuState, getIDjson};

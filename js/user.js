@@ -2,7 +2,8 @@
 let firebase = require("./fb-config"),
 	provider = new firebase.auth.GoogleAuthProvider(),
     currentUser = null,
-    displayName = null;
+    displayName = null,
+    photo = null;
 
 
 function logInGoogle() {
@@ -29,15 +30,24 @@ function getName(){
     return displayName;
 }
 
+function setPhoto(val){
+    photo = val;
+}
+
+function getPhoto(){
+    return photo;
+}
+
 firebase.auth().onAuthStateChanged(function(user){
 	if (user){
         currentUser = user.uid;
         displayName = user.displayName;
+        photo = user.photoURL;
 	}else{
         currentUser = null;
         displayName = null;
-		console.log("NO USER LOGGED IN");
+        photo = null;
 	}
 });
 
-module.exports = {logInGoogle, logOut, setUser, getUser, setName, getName};
+module.exports = {logInGoogle, logOut, setUser, getUser, setName, getName, setPhoto, getPhoto};

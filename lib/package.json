@@ -24,6 +24,7 @@
     "matchdep": "^1.0.1"
   },
   "dependencies": {
-    "firebase": "^3.6.9"
+    "firebase": "^3.6.9",
+    "popper.js": "^1.14.1"
   }
 }
