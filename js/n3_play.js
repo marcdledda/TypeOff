@@ -38,6 +38,8 @@ let word = "alba";
 let correct = [];
 let rndNum;
 let lvSet = 1;
+let enemyBar;
+let enemyConfig;
 
 let forestMonster = n0_preload.forestMonster;
 let lv1EnemyTxt;
@@ -222,8 +224,8 @@ let startState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv1EnemyTxt = game.add.text(581, 95, `x${lv1EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(581, 115, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         forestMonster = game.add.image(447, 150, 'forestMonster');
 
         LV1mob();
@@ -300,8 +302,8 @@ let start2State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv2EnemyTxt = game.add.text(507, 96, `x${lv2EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv1EnemyLife = 2;
@@ -383,8 +385,8 @@ let start3State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv3EnemyTxt = game.add.text(507, 96, `x${lv3EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv2EnemyLife = 2;
@@ -434,17 +436,17 @@ function LV3mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                start2State.playerBar.setPercent((playerLife / 3)*100);
+                start3State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                start2State.playerBar.setPercent(50);
+                start3State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                start2State.playerBar.setPercent(0);
+                start3State.playerBar.setPercent(0);
                 clearInterval(monster3ATK);
                 gameOver();
             }
@@ -466,8 +468,8 @@ let start4State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv4EnemyTxt = game.add.text(507, 96, `x${lv4EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv3EnemyLife = 2;
@@ -517,17 +519,17 @@ function LV4mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                start2State.playerBar.setPercent((playerLife / 3)*100);
+                start4State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                start2State.playerBar.setPercent(50);
+                start4State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                start2State.playerBar.setPercent(0);
+                start4State.playerBar.setPercent(0);
                 clearInterval(monster4ATK);
                 gameOver();
             }
@@ -549,8 +551,8 @@ let start5State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv5EnemyTxt = game.add.text(507, 96, `x${lv5EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv4EnemyLife = 2;
@@ -600,17 +602,17 @@ function LV5mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                start2State.playerBar.setPercent((playerLife / 3)*100);
+                start5State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                start2State.playerBar.setPercent(50);
+                start5State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                start2State.playerBar.setPercent(0);
+                start5State.playerBar.setPercent(0);
                 clearInterval(monster5ATK);
                 gameOver();
             }
@@ -632,8 +634,8 @@ let start6State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv6EnemyTxt = game.add.text(507, 96, `x${lv6EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv5EnemyLife = 2;
@@ -683,17 +685,17 @@ function LV6mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                start2State.playerBar.setPercent((playerLife / 3)*100);
+                start6State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                start2State.playerBar.setPercent(50);
+                start6State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                start2State.playerBar.setPercent(0);
+                start6State.playerBar.setPercent(0);
                 clearInterval(monster6ATK);
                 gameOver();
             }
@@ -715,8 +717,8 @@ let start7State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv7EnemyTxt = game.add.text(507, 96, `x${lv7EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv6EnemyLife = 2;
@@ -766,17 +768,17 @@ function LV7mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                start2State.playerBar.setPercent((playerLife / 3)*100);
+                start7State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                start2State.playerBar.setPercent(50);
+                start7State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                start2State.playerBar.setPercent(0);
+                start7State.playerBar.setPercent(0);
                 clearInterval(monster7ATK);
                 gameOver();
             }
@@ -798,8 +800,8 @@ let start8State = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv8EnemyTxt = game.add.text(507, 96, `x${lv8EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv7EnemyLife = 2;
@@ -849,17 +851,17 @@ function LV8mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                start2State.playerBar.setPercent((playerLife / 3)*100);
+                start8State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                start2State.playerBar.setPercent(50);
+                start8State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                start2State.playerBar.setPercent(0);
+                start8State.playerBar.setPercent(0);
                 clearInterval(monster8ATK);
                 gameOver();
             }
@@ -944,28 +946,28 @@ function keyPress(e){
         bmd.cls();
         if (lvSet == 1){
             lv1EnemyLife--;
-            lv1EnemyTxt.setText(`x${lv1EnemyLife}`);
+            startState.enemyBar.setPercent((lv1EnemyLife / 2) * 100);
         } else if (lvSet == 2) {
             lv2EnemyLife--;
-            lv2EnemyTxt.setText(`x${lv2EnemyLife}`);
+            start2State.enemyBar.setPercent((lv2EnemyLife / 2) * 100);
         } else if (lvSet == 3) {
             lv3EnemyLife--;
-            lv3EnemyTxt.setText(`x${lv3EnemyLife}`);
+            start3State.enemyBar.setPercent((lv3EnemyLife / 2) * 100);
         } else if (lvSet == 4) {
             lv4EnemyLife--;
-            lv4EnemyTxt.setText(`x${lv4EnemyLife}`);
+            start4State.enemyBar.setPercent((lv4EnemyLife / 2) * 100);
         } else if (lvSet == 5) {
             lv5EnemyLife--;
-            lv5EnemyTxt.setText(`x${lv5EnemyLife}`);
+            start5State.enemyBar.setPercent((lv5EnemyLife / 2) * 100);
         } else if (lvSet == 6) {
             lv6EnemyLife--;
-            lv6EnemyTxt.setText(`x${lv6EnemyLife}`);
+            start6State.enemyBar.setPercent((lv6EnemyLife / 2) * 100);
         } else if (lvSet == 7) {
             lv7EnemyLife--;
-            lv7EnemyTxt.setText(`x${lv7EnemyLife}`);
+            start7State.enemyBar.setPercent((lv7EnemyLife / 2) * 100);
         } else if (lvSet == 8) {
             lv8EnemyLife--;
-            lv8EnemyTxt.setText(`x${lv8EnemyLife}`);
+            start8State.enemyBar.setPercent((lv8EnemyLife / 2) * 100);
         }
 
 
