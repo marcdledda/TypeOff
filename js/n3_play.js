@@ -109,6 +109,7 @@ let transitionState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -118,7 +119,6 @@ let transitionState = {
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
 
@@ -214,6 +214,8 @@ let startState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
+        forestMonster = game.add.image(427, 48, 'forestMonster');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -225,11 +227,9 @@ let startState = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        forestMonster = game.add.image(447, 150, 'forestMonster');
 
         LV1mob();
-
-        playerSprite = game.add.image(278, 247, 'playerSprite');
+        
         playerConfig = {width: 219, height: 23, x: 219.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -292,6 +292,8 @@ let start2State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
+        swampMonster = game.add.image(427, 18, 'swampMonster');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -303,12 +305,11 @@ let start2State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        swampMonster = game.add.image(547, 60, 'swampMonster');
+
 
         lv1EnemyLife = 2;
         LV2mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -375,6 +376,7 @@ let start3State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -391,7 +393,6 @@ let start3State = {
         lv2EnemyLife = 2;
         LV3mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -458,6 +459,7 @@ let start4State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -474,7 +476,6 @@ let start4State = {
         lv3EnemyLife = 2;
         LV4mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -541,6 +542,7 @@ let start5State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -557,7 +559,6 @@ let start5State = {
         lv4EnemyLife = 2;
         LV5mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -624,6 +625,7 @@ let start6State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -640,7 +642,6 @@ let start6State = {
         lv5EnemyLife = 2;
         LV6mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -707,6 +708,7 @@ let start7State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -723,7 +725,6 @@ let start7State = {
         lv6EnemyLife = 2;
         LV7mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         
@@ -790,6 +791,7 @@ let start8State = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -806,7 +808,6 @@ let start8State = {
         lv7EnemyLife = 2;
         LV8mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
         

@@ -195,4 +195,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore, getBoardDate, checkUser, IDjson, searchUser};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore, getBoardDate, checkUser, IDjson, searchUser};
