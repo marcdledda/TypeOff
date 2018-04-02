@@ -9,8 +9,24 @@ let game = n0_preload.game;
 let logoFollowing = n0_preload.logoFollowing;
 let xBTN = n0_preload.xBTN;
 let defaultMenu = n0_preload.defaultMenu;
-let searchQuestion = false;
 let friendBTN;
+let searchQuestion = false;
+let friendQuestion = true;
+let friendPress = 0;
+
+let friendData;
+let friendID = [];
+let friendPhoto;
+let friendIMG1;
+let friendIMG2;
+let friendIMG3;
+let friendIMG4;
+let friendName;
+let friendNameTxT;
+let friendScore;
+let friendScoreTxT;
+let friendF_UF;
+
 let followBTN;
 let unfollowBTN;
 let searchData;
@@ -42,12 +58,88 @@ let followState = {
         game.state.start('menu');
         $('#input').hide();
         followCheck = undefined;
+        searchQuestion = false;
+        friendQuestion = true;
         searchAmount = 0;
     },
 };
 
 function friend(){
-    console.log('friend press');
+    let currentUser = login.getUser();
+    checkFollow(currentUser).then(
+        (resolve) => {
+            friendPress++;
+            for (let item in resolve) {
+                friendID.push(`${item}`);
+            }
+            buildFriends(resolve);
+        }
+    );
+}
+
+function buildFriends(input){
+    if (friendPress >= 2){
+        friendPhoto.destroy();
+        friendName.destroy();
+        friendScore.destroy();
+        friendF_UF.destroy();
+    }
+    if (searchQuestion == true) {
+        userPhoto.destroy();
+        searchUsername.destroy();
+        searchHiScore.destroy();
+        if (followCheck == true) {
+            unfollowBTN.destroy();
+        } else if (followCheck !== true) {
+            followBTN.destroy();
+        }
+        searchQuestion = false;
+        friendQuestion = true;
+    }
+    let arrayInput = Object.values(input);
+    for (let i = 0; i < arrayInput.length; i++){
+        game.load.image(`friendIMG${i}`, `${arrayInput[i].followPhoto}`);
+        if (i == (arrayInput.length - 1)){
+            friendData = arrayInput;
+            game.load.start();
+            break;
+        }
+    }
+}
+
+function printFriends(){
+    friendPhoto = game.add.group();
+    friendName = game.add.group();
+    friendScore = game.add.group();
+    friendF_UF = game.add.group();
+    for (let i = 0; i < friendData.length; i++){
+        // if ( i == 0 ){
+        //     friendIMG1 = game.add.image(256, 103, `friendIMG${i}`);
+        //     friendIMG1.scale.setTo(0.137, 0.137);
+        //     friendPhoto.add(friendIMG1);
+        // } else if ( i == 1 ){
+        //     friendIMG2 = game.add.image(256, 189, `friendIMG${i}`);
+        //     friendIMG2.scale.setTo(0.137, 0.137);
+        //     friendPhoto.add(friendIMG2);
+        // } else if ( i == 2 ){
+        //     friendIMG3 = game.add.image(256, 275, `friendIMG${i}`);
+        //     friendIMG3.scale.setTo(0.137, 0.137);
+        //     friendPhoto.add(friendIMG3);
+        // } else if ( i == 3 ){
+        //     friendIMG4 = game.add.image(256, 361, `friendIMG${i}`);
+        //     friendIMG4.scale.setTo(0.137, 0.137);
+        //     friendPhoto.add(friendIMG4);
+        // }
+        let IMGy = (i*(86)+103);
+        friendIMG1 = game.add.image(256, IMGy, `friendIMG${i}`);
+        friendIMG1.scale.setTo(0.137, 0.137);
+        friendPhoto.add(friendIMG1);
+        let friendY = (i*(86)+111);
+        friendNameTxT = game.add.text(341, friendY, `${friendData[i].followName}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        friendName.add(friendNameTxT);
+        let scoreY = (i*(86)+145);
+        let friendScoreTxT = game.add.text(341, scoreY, `Highscore:${friendData[i].followScore}`, { font: '20px press_start_2pregular', fill: '#000000' });
+    }
 }
 
 function keyPress(e){
@@ -57,6 +149,7 @@ function keyPress(e){
             n0_preload.searchUser(search).then(
                 (resolve) => {
                     searchQuestion = true;
+                    friendQuestion = false;
                     postInfo(resolve);
                 }
             );
@@ -85,11 +178,15 @@ function postInfo(input){
 }
 
 function postInfo2(){
-    userPhoto = game.add.image(256, 103, 'userIMG');
-    userPhoto.scale.setTo(0.137, 0.137);
-    searchUsername = game.add.text(341, 111, `${searchData[0].name}`, { font: '20px press_start_2pregular', fill: '#000000' });
-    searchHiScore = game.add.text(341, 145, `Highscore:${searchData[0].score}`, { font: '20px press_start_2pregular', fill: '#000000' });
-    setButton();
+    if (friendQuestion == true) {
+        printFriends();
+    } else {
+        userPhoto = game.add.image(256, 103, 'userIMG');
+        userPhoto.scale.setTo(0.137, 0.137);
+        searchUsername = game.add.text(341, 111, `${searchData[0].name}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        searchHiScore = game.add.text(341, 145, `Highscore:${searchData[0].score}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        setButton();
+    }
 }
 
 function followUser(){
