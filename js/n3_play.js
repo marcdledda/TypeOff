@@ -10,6 +10,13 @@ var HealthBar = require("../HealthBar.js");
 
 let game = n0_preload.game;
 let lvOneBG = n0_preload.lvOneBG;
+let lvTwoBG;
+let lvThreeBG;
+let lvFourBG;
+let lvFiveBG;
+let lvSixBG;
+let lvSevenBG;
+let lvEightBG;
 let pauseBTN = n0_preload.pauseBTN;
 let pauseScreen = n0_preload.pauseScreen;
 let logoPause = n0_preload.logoPause;
@@ -107,8 +114,31 @@ function stopTime(){
 //TRANSITIONS
 let transitionState = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        if (lvSet == 1) {
+            lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
+            lvOneBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 2) {
+            lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
+            lvTwoBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 3) {
+            lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
+            lvThreeBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 4) {
+            lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
+            lvFourBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 5) {
+            lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
+            lvFiveBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 6) {
+            lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
+            lvSixBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 7) {
+            lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
+            lvSevenBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 8) {
+            lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
+            lvEightBG.anchor.set(0.5, 0.5);
+        }
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -290,8 +320,8 @@ function LV1mob(){
 //LV 2
 let start2State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
+        lvTwoBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         swampMonster = game.add.image(427, 18, 'swampMonster');
         textBar = game.add.image(0, 318, 'textBar');
@@ -374,8 +404,8 @@ function LV2mob(){
 // LV 3
 let start3State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
+        lvThreeBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -457,8 +487,8 @@ function LV3mob(){
 // LV 4
 let start4State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
+        lvFourBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -540,8 +570,8 @@ function LV4mob(){
 // LV 5
 let start5State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
+        lvFiveBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -623,8 +653,8 @@ function LV5mob(){
 // LV 6
 let start6State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
+        lvSixBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -706,8 +736,8 @@ function LV6mob(){
 // LV 7
 let start7State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
+        lvSevenBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -789,8 +819,8 @@ function LV7mob(){
 // LV 8
 let start8State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
+        lvEightBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');

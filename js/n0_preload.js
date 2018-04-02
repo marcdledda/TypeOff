@@ -161,6 +161,13 @@ let preloadState = {
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
+        game.load.image('lvTwoBG', 'js/media/levelTwo.png');
+        game.load.image('lvThreeBG', 'js/media/levelThree.png');
+        game.load.image('lvFourBG', 'js/media/levelFour.png');
+        game.load.image('lvFiveBG', 'js/media/levelFive.png');
+        game.load.image('lvSixBG', 'js/media/levelSix.png');
+        game.load.image('lvSevenBG', 'js/media/levelSeven.png');
+        game.load.image('lvEightBG', 'js/media/levelEight.png');
         game.load.image('pauseBTN', 'js/media/pauseBTN.png');
         game.load.image('pauseScreen', 'js/media/pauseScreen.png');
         game.load.image('logoPause', 'js/media/logoPause.png');
