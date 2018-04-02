@@ -9,6 +9,8 @@ let game = n0_preload.game;
 let logoFollowing = n0_preload.logoFollowing;
 let xBTN = n0_preload.xBTN;
 let defaultMenu = n0_preload.defaultMenu;
+let searchQuestion = false;
+let friendBTN;
 let followBTN;
 let unfollowBTN;
 let searchData;
@@ -28,6 +30,8 @@ let followState = {
 
         game.load.onFileComplete.add(postInfo2, this);
 
+        friendBTN = game.add.button(276, 70, 'friends', friend, this);
+
         logoFollowing = game.add.image(256, 18, 'logoFollowing');
         xBTN = game.add.button(23, 18, 'xBTN', this.exit, this);
 
@@ -42,12 +46,17 @@ let followState = {
     },
 };
 
+function friend(){
+    console.log('friend press');
+}
+
 function keyPress(e){
     if (login.getUser() !== null && e.which === 13 || e.keyCode == 13){
         search = document.getElementById('input').value;
         if (search !== "" && search !== login.getName()) {
             n0_preload.searchUser(search).then(
                 (resolve) => {
+                    searchQuestion = true;
                     postInfo(resolve);
                 }
             );
