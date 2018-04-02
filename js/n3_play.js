@@ -6,6 +6,7 @@ let n0_preload = require("./n0_preload"),
     $ = require('jquery'),
     Phaser = require("../phaser.min.js"),
     login = require("./user");
+var HealthBar = require("../HealthBar.js");
 
 let game = n0_preload.game;
 let lvOneBG = n0_preload.lvOneBG;
@@ -17,6 +18,10 @@ let backToTitleBTN = n0_preload.backToTitleBTN;
 let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
+let btmLeft;
+let btmRight;
+let playerBG;
+let monsterBG;
 let transitionTxT;
 let showLV;
 let hideLV;
@@ -77,6 +82,8 @@ let monster8ATK;
 
 let playerSprite = n0_preload.playerSprite;
 let playerLife = 3;
+let playerBar;
+let playerConfig;
 let p1Heart = n0_preload.p1Heart;
 let p2Heart = n0_preload.p2Heart;
 let p3Heart = n0_preload.p3Heart;
@@ -100,6 +107,10 @@ let transitionState = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -151,6 +162,7 @@ let transitionState = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -207,6 +219,8 @@ let playState = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
         tutorialScreen = game.add.image(234, 38, 'tutorialScreen');
 
         pauseBTN = game.add.image(23, 18, 'pauseBTN');
@@ -229,6 +243,10 @@ let startState = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -240,6 +258,9 @@ let startState = {
         LV1mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
+        playerConfig = {width: 219, height: 23, x: 219.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
+
         p1Heart = game.add.image(241, 206, 'heart');
         p2Heart = game.add.image(281, 206, 'heart');
         p3Heart = game.add.image(318, 206, 'heart');
@@ -254,6 +275,7 @@ let startState = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -280,13 +302,16 @@ function LV1mob(){
     monsterATK = setInterval(function(){
         if (playerLife == 3) {
             playerLife--;
+            startState.playerBar.setPercent((playerLife / 3)*100);
             p1Heart.loadTexture('heartDamage');
         } else if (playerLife == 2) {
             playerLife--;
             p2Heart.loadTexture('heartDamage');
+            startState.playerBar.setPercent((playerLife / 3)*100);
         } else if(playerLife == 1) {
             playerLife--;
             p3Heart.loadTexture('heartDamage');
+            startState.playerBar.setPercent((playerLife / 3)*100);
             clearInterval(monsterATK);
             gameOver();
         }
@@ -299,6 +324,10 @@ let start2State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -335,6 +364,7 @@ let start2State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -384,6 +414,10 @@ let start3State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -420,6 +454,7 @@ let start3State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -469,6 +504,10 @@ let start4State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -505,6 +544,7 @@ let start4State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -554,6 +594,10 @@ let start5State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -590,6 +634,7 @@ let start5State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -639,6 +684,10 @@ let start6State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -675,6 +724,7 @@ let start6State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -724,6 +774,10 @@ let start7State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -760,6 +814,7 @@ let start7State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -809,6 +864,10 @@ let start8State = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
@@ -845,6 +904,7 @@ let start8State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');

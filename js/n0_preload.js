@@ -168,8 +168,11 @@ let preloadState = {
         game.load.image('resumeBTN', 'js/media/resume.png');
         game.load.image('backToTitleBTN', 'js/media/backToTitle.png');
         game.load.image('textBar', 'js/media/textBar.png');
+        game.load.image('btmLeft', 'js/media/btmLeft.png');
+        game.load.image('btmRight', 'js/media/btmRight.png');
         game.load.image('tutorialScreen', 'js/media/tutorial.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
+        game.load.image('healthBG', 'js/media/healthBG.png');
         game.load.image('heart', 'js/media/heart.png');
         game.load.image('heartDamage', 'js/media/heartDamage.png');
         game.load.image('forestMonster', 'js/media/forestMonster.png');
