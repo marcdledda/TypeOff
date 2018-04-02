@@ -84,6 +84,8 @@ let playerSprite = n0_preload.playerSprite;
 let playerLife = 3;
 let playerBar;
 let playerConfig;
+let playerWidth = 219;
+let playerX = 219.5;
 let p1Heart = n0_preload.p1Heart;
 let p2Heart = n0_preload.p2Heart;
 let p3Heart = n0_preload.p3Heart;
@@ -116,44 +118,13 @@ let transitionState = {
         pauseBTN.scale.setTo(0.534, 0.529);
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
 
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
         game.input.onDown.add(this.pauseMenu);
 
-        if (lv1EnemyLife == 0) {
-            clearInterval(monsterATK);
-        }
-        if (lv2EnemyLife == 0) {
-            clearInterval(monster2ATK);
-        }
-        if (lv3EnemyLife == 0) {
-            clearInterval(monster3ATK);
-        }
-        if (lv4EnemyLife == 0) {
-            clearInterval(monster4ATK);
-        }
-        if (lv5EnemyLife == 0) {
-            clearInterval(monster5ATK);
-        }
-        if (lv6EnemyLife == 0) {
-            clearInterval(monster6ATK);
-        }
-        if (lv7EnemyLife == 0) {
-            clearInterval(monster7ATK);
-        }
+        stopTime();
 
         this.levelShow();
     },
@@ -260,10 +231,6 @@ let startState = {
         playerSprite = game.add.image(278, 247, 'playerSprite');
         playerConfig = {width: 219, height: 23, x: 219.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: true};
         this.playerBar = new HealthBar(this.game, playerConfig);
-
-        p1Heart = game.add.image(241, 206, 'heart');
-        p2Heart = game.add.image(281, 206, 'heart');
-        p3Heart = game.add.image(318, 206, 'heart');
         
         wordSetup();
 
@@ -303,15 +270,16 @@ function LV1mob(){
         if (playerLife == 3) {
             playerLife--;
             startState.playerBar.setPercent((playerLife / 3)*100);
-            p1Heart.loadTexture('heartDamage');
+            playerWidth = 146;
+            playerX = 256;
         } else if (playerLife == 2) {
             playerLife--;
-            p2Heart.loadTexture('heartDamage');
-            startState.playerBar.setPercent((playerLife / 3)*100);
+            startState.playerBar.setPercent(50);
+            playerWidth = 73;
+            playerX = 292.5;
         } else if(playerLife == 1) {
             playerLife--;
-            p3Heart.loadTexture('heartDamage');
-            startState.playerBar.setPercent((playerLife / 3)*100);
+            startState.playerBar.setPercent(0);
             clearInterval(monsterATK);
             gameOver();
         }
@@ -340,19 +308,8 @@ let start2State = {
         LV2mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -394,13 +351,17 @@ function LV2mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster2ATK);
                 gameOver();
             }
@@ -430,19 +391,8 @@ let start3State = {
         LV3mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -484,13 +434,17 @@ function LV3mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster3ATK);
                 gameOver();
             }
@@ -520,19 +474,8 @@ let start4State = {
         LV4mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -574,13 +517,17 @@ function LV4mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster4ATK);
                 gameOver();
             }
@@ -610,19 +557,8 @@ let start5State = {
         LV5mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -664,13 +600,17 @@ function LV5mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster5ATK);
                 gameOver();
             }
@@ -700,19 +640,8 @@ let start6State = {
         LV6mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -754,13 +683,17 @@ function LV6mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster6ATK);
                 gameOver();
             }
@@ -790,19 +723,8 @@ let start7State = {
         LV7mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -844,13 +766,17 @@ function LV7mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster7ATK);
                 gameOver();
             }
@@ -880,19 +806,8 @@ let start8State = {
         LV8mob();
 
         playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -934,13 +849,17 @@ function LV8mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster8ATK);
                 gameOver();
             }
