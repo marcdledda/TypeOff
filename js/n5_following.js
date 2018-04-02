@@ -9,11 +9,24 @@ let game = n0_preload.game;
 let logoFollowing = n0_preload.logoFollowing;
 let xBTN = n0_preload.xBTN;
 let defaultMenu = n0_preload.defaultMenu;
+let friendBTN;
+let searchQuestion = false;
+let friendQuestion = true;
+let friendPress = 0;
+
+let friendData;
+let friendID = [];
+let friendName;
+let friendNameTxT;
+let friendScore;
+let friendScoreTxT;
+let friendF_UF;
+let friendF_UFBTN;
+
 let followBTN;
 let unfollowBTN;
 let searchData;
 let followData;
-let userPhoto;
 let searchUsername;
 let searchHiScore;
 let followIDjson;
@@ -28,6 +41,8 @@ let followState = {
 
         game.load.onFileComplete.add(postInfo2, this);
 
+        friendBTN = game.add.button(276, 70, 'friends', friend, this);
+
         logoFollowing = game.add.image(256, 18, 'logoFollowing');
         xBTN = game.add.button(23, 18, 'xBTN', this.exit, this);
 
@@ -38,9 +53,145 @@ let followState = {
         game.state.start('menu');
         $('#input').hide();
         followCheck = undefined;
+        searchQuestion = false;
+        friendQuestion = true;
         searchAmount = 0;
     },
 };
+
+function friend(){
+    let currentUser = login.getUser();
+    checkFollow(currentUser).then(
+        (resolve) => {
+            friendPress++;
+            for (let item in resolve) {
+                friendID.push(`${item}`);
+            }
+            buildFriends(resolve);
+        }
+    );
+}
+
+function buildFriends(input){
+    if (friendPress >= 2){
+        friendName.destroy();
+        friendScore.destroy();
+        friendF_UF.destroy();
+    }
+    if (searchQuestion == true) {
+        searchUsername.destroy();
+        searchHiScore.destroy();
+        if (followCheck == true) {
+            unfollowBTN.destroy();
+        } else if (followCheck !== true) {
+            followBTN.destroy();
+        }
+        searchQuestion = false;
+        friendQuestion = true;
+    }
+    let arrayInput = Object.values(input);
+    friendData = arrayInput;
+    printFriends();
+}
+
+function printFriends(){
+    friendName = game.add.group();
+    friendScore = game.add.group();
+    friendF_UF = game.add.group();
+    for (let i = 0; i < friendData.length; i++){
+        let friendY = (i*(86)+111);
+        friendNameTxT = game.add.text(341, friendY, `${friendData[i].followName}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        friendName.add(friendNameTxT);
+        let scoreY = (i*(86)+145);
+        friendScoreTxT = game.add.text(341, scoreY, `Highscore:${friendData[i].followScore}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        friendScore.add(friendScoreTxT);
+        let btnX = friendNameTxT.width + 356;
+        let btnY = (i*(86)+116);
+        friendF_UFBTN = game.add.button(btnX, btnY, 'unfollow', ufFriend);
+        friendF_UF.add(friendF_UFBTN);
+    }
+}
+
+function ufFriend(e){
+    if (e.y == 116) {
+        let theID  = friendID[0];
+        deleteFollow(theID).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'follow', fFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    }
+    else if (e.y == 202) {
+        let theID  = friendID[1];
+        deleteFollow(theID).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'follow', fFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    } else if (e.y == 288) {
+        let theID  = friendID[2];
+        deleteFollow(theID).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'follow', fFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    } else if (e.y == 374) {
+        let theID  = friendID[3];
+        deleteFollow(theID).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'follow', fFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    }
+}
+
+function fFriend(e){
+    if (e.y == 116) {
+        let followObj = friendData[0];
+        followFB(followObj).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'unfollow', ufFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    } else if (e.y == 202) {
+        let followObj = friendData[1];
+        followFB(followObj).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'unfollow', ufFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    } else if (e.y == 288) {
+        let followObj = friendData[2];
+        followFB(followObj).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'unfollow', ufFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    } else if (e.y == 374) {
+        let followObj = friendData[3];
+        followFB(followObj).then(
+            (resolve) => {
+                e.destroy();
+                friendF_UFBTN = game.add.button(e.x, e.y, 'unfollow', ufFriend);
+                friendF_UF.add(friendF_UFBTN);
+            }
+        );
+    }   
+}
 
 function keyPress(e){
     if (login.getUser() !== null && e.which === 13 || e.keyCode == 13){
@@ -60,9 +211,16 @@ function postInfo(input){
     searchData = arrayInput;
     followData = arrayInput;
 
-    game.load.image('userIMG', `${arrayInput[0].photo}`);
+    if (friendQuestion == true) {
+        friendName.destroy();
+        friendScore.destroy();
+        friendF_UF.destroy();
+    }
+
+    searchQuestion = true;
+    friendQuestion = false;
+    
     if (searchAmount >= 1) {
-        userPhoto.destroy();
         searchUsername.destroy();
         searchHiScore.destroy();
         if (followCheck == true) {
@@ -72,12 +230,10 @@ function postInfo(input){
         }
     }
     searchAmount++;
-    game.load.start();
+    postInfo2();
 }
 
 function postInfo2(){
-    userPhoto = game.add.image(256, 103, 'userIMG');
-    userPhoto.scale.setTo(0.137, 0.137);
     searchUsername = game.add.text(341, 111, `${searchData[0].name}`, { font: '20px press_start_2pregular', fill: '#000000' });
     searchHiScore = game.add.text(341, 145, `Highscore:${searchData[0].score}`, { font: '20px press_start_2pregular', fill: '#000000' });
     setButton();
