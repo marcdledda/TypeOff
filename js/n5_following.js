@@ -14,7 +14,6 @@ let unfollowBTN;
 let searchData;
 let followData;
 let userPhoto;
-let photoPreload;
 let searchUsername;
 let searchHiScore;
 let followIDjson;
@@ -165,8 +164,6 @@ function setButton(){
 
 function checkUser(input){
     let arrayInput = Object.values(input);
-    console.log("input", input);
-    console.log("arrayInput", arrayInput);
     let i = 0;
     let j = 0;
     for (let item in arrayInput) {

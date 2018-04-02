@@ -29,7 +29,6 @@ let backToTitleBTN;
 let textBar;
 let tutorialScreen;
 let startBTN;
-let enemyHeart;
 let forestMonster;
 let swampMonster;
 let playerSprite;
@@ -162,16 +161,24 @@ let preloadState = {
 
         //Play
         game.load.image('lvOneBG', 'js/media/levelOne.png');
+        game.load.image('lvTwoBG', 'js/media/levelTwo.png');
+        game.load.image('lvThreeBG', 'js/media/levelThree.png');
+        game.load.image('lvFourBG', 'js/media/levelFour.png');
+        game.load.image('lvFiveBG', 'js/media/levelFive.png');
+        game.load.image('lvSixBG', 'js/media/levelSix.png');
+        game.load.image('lvSevenBG', 'js/media/levelSeven.png');
+        game.load.image('lvEightBG', 'js/media/levelEight.png');
         game.load.image('pauseBTN', 'js/media/pauseBTN.png');
         game.load.image('pauseScreen', 'js/media/pauseScreen.png');
         game.load.image('logoPause', 'js/media/logoPause.png');
         game.load.image('resumeBTN', 'js/media/resume.png');
         game.load.image('backToTitleBTN', 'js/media/backToTitle.png');
         game.load.image('textBar', 'js/media/textBar.png');
+        game.load.image('btmLeft', 'js/media/btmLeft.png');
+        game.load.image('btmRight', 'js/media/btmRight.png');
         game.load.image('tutorialScreen', 'js/media/tutorial.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
-        game.load.image('heart', 'js/media/heart.png');
-        game.load.image('heartDamage', 'js/media/heartDamage.png');
+        game.load.image('healthBG', 'js/media/healthBG.png');
         game.load.image('forestMonster', 'js/media/forestMonster.png');
         game.load.image('swampMonster', 'js/media/swampMonster.png');
         game.load.image('playerSprite', 'js/media/player.png');
@@ -195,4 +202,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, enemyHeart, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore, getBoardDate, checkUser, IDjson, searchUser};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore, getBoardDate, checkUser, IDjson, searchUser};

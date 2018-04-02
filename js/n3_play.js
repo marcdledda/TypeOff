@@ -6,9 +6,17 @@ let n0_preload = require("./n0_preload"),
     $ = require('jquery'),
     Phaser = require("../phaser.min.js"),
     login = require("./user");
+var HealthBar = require("../HealthBar.js");
 
 let game = n0_preload.game;
 let lvOneBG = n0_preload.lvOneBG;
+let lvTwoBG;
+let lvThreeBG;
+let lvFourBG;
+let lvFiveBG;
+let lvSixBG;
+let lvSevenBG;
+let lvEightBG;
 let pauseBTN = n0_preload.pauseBTN;
 let pauseScreen = n0_preload.pauseScreen;
 let logoPause = n0_preload.logoPause;
@@ -17,6 +25,10 @@ let backToTitleBTN = n0_preload.backToTitleBTN;
 let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
+let btmLeft;
+let btmRight;
+let playerBG;
+let monsterBG;
 let transitionTxT;
 let showLV;
 let hideLV;
@@ -33,11 +45,12 @@ let word = "alba";
 let correct = [];
 let rndNum;
 let lvSet = 1;
+let enemyBar;
+let enemyConfig;
 
 let forestMonster = n0_preload.forestMonster;
 let lv1EnemyTxt;
 let lv1EnemyLife = 2;
-let enemyHeart = n0_preload.enemyHeart;
 let monsterATK;
 
 let lv2EnemyTxt;
@@ -77,6 +90,10 @@ let monster8ATK;
 
 let playerSprite = n0_preload.playerSprite;
 let playerLife = 3;
+let playerBar;
+let playerConfig;
+let playerWidth = 219;
+let playerX = 219.5;
 let p1Heart = n0_preload.p1Heart;
 let p2Heart = n0_preload.p2Heart;
 let p3Heart = n0_preload.p3Heart;
@@ -97,52 +114,48 @@ function stopTime(){
 //TRANSITIONS
 let transitionState = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        if (lvSet == 1) {
+            lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
+            lvOneBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 2) {
+            lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
+            lvTwoBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 3) {
+            lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
+            lvThreeBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 4) {
+            lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
+            lvFourBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 5) {
+            lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
+            lvFiveBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 6) {
+            lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
+            lvSixBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 7) {
+            lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
+            lvSevenBG.anchor.set(0.5, 0.5);
+        } else if (lvSet == 8) {
+            lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
+            lvEightBG.anchor.set(0.5, 0.5);
+        }
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
 
         game.input.keyboard.addCallbacks(this, keyPress, null, null);
         game.input.onDown.add(this.pauseMenu);
 
-        if (lv1EnemyLife == 0) {
-            clearInterval(monsterATK);
-        }
-        if (lv2EnemyLife == 0) {
-            clearInterval(monster2ATK);
-        }
-        if (lv3EnemyLife == 0) {
-            clearInterval(monster3ATK);
-        }
-        if (lv4EnemyLife == 0) {
-            clearInterval(monster4ATK);
-        }
-        if (lv5EnemyLife == 0) {
-            clearInterval(monster5ATK);
-        }
-        if (lv6EnemyLife == 0) {
-            clearInterval(monster6ATK);
-        }
-        if (lv7EnemyLife == 0) {
-            clearInterval(monster7ATK);
-        }
+        stopTime();
 
         this.levelShow();
     },
@@ -151,6 +164,7 @@ let transitionState = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -207,6 +221,8 @@ let playState = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
         tutorialScreen = game.add.image(234, 38, 'tutorialScreen');
 
         pauseBTN = game.add.image(23, 18, 'pauseBTN');
@@ -228,21 +244,24 @@ let startState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
+        forestMonster = game.add.image(427, 48, 'forestMonster');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv1EnemyTxt = game.add.text(581, 95, `x${lv1EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(581, 115, 'heart');
-        forestMonster = game.add.image(447, 150, 'forestMonster');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
 
         LV1mob();
-
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        p1Heart = game.add.image(241, 206, 'heart');
-        p2Heart = game.add.image(281, 206, 'heart');
-        p3Heart = game.add.image(318, 206, 'heart');
+        
+        playerConfig = {width: 219, height: 23, x: 219.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -254,6 +273,7 @@ let startState = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -280,13 +300,17 @@ function LV1mob(){
     monsterATK = setInterval(function(){
         if (playerLife == 3) {
             playerLife--;
-            p1Heart.loadTexture('heartDamage');
+            startState.playerBar.setPercent((playerLife / 3)*100);
+            playerWidth = 146;
+            playerX = 256;
         } else if (playerLife == 2) {
             playerLife--;
-            p2Heart.loadTexture('heartDamage');
+            startState.playerBar.setPercent(50);
+            playerWidth = 73;
+            playerX = 292.5;
         } else if(playerLife == 1) {
             playerLife--;
-            p3Heart.loadTexture('heartDamage');
+            startState.playerBar.setPercent(0);
             clearInterval(monsterATK);
             gameOver();
         }
@@ -296,34 +320,28 @@ function LV1mob(){
 //LV 2
 let start2State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
+        lvTwoBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
+        swampMonster = game.add.image(427, 18, 'swampMonster');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv2EnemyTxt = game.add.text(507, 96, `x${lv2EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
-        swampMonster = game.add.image(547, 60, 'swampMonster');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
+
 
         lv1EnemyLife = 2;
         LV2mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -335,6 +353,7 @@ let start2State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -364,13 +383,17 @@ function LV2mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start2State.playerBar.setPercent(0);
                 clearInterval(monster2ATK);
                 gameOver();
             }
@@ -381,34 +404,27 @@ function LV2mob(){
 // LV 3
 let start3State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
+        lvThreeBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv3EnemyTxt = game.add.text(507, 96, `x${lv3EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv2EnemyLife = 2;
         LV3mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -420,6 +436,7 @@ let start3State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -449,13 +466,17 @@ function LV3mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start3State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start3State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start3State.playerBar.setPercent(0);
                 clearInterval(monster3ATK);
                 gameOver();
             }
@@ -466,34 +487,27 @@ function LV3mob(){
 // LV 4
 let start4State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
+        lvFourBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv4EnemyTxt = game.add.text(507, 96, `x${lv4EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv3EnemyLife = 2;
         LV4mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -505,6 +519,7 @@ let start4State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -534,13 +549,17 @@ function LV4mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start4State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start4State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start4State.playerBar.setPercent(0);
                 clearInterval(monster4ATK);
                 gameOver();
             }
@@ -551,34 +570,27 @@ function LV4mob(){
 // LV 5
 let start5State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
+        lvFiveBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv5EnemyTxt = game.add.text(507, 96, `x${lv5EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv4EnemyLife = 2;
         LV5mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -590,6 +602,7 @@ let start5State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -619,13 +632,17 @@ function LV5mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start5State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start5State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start5State.playerBar.setPercent(0);
                 clearInterval(monster5ATK);
                 gameOver();
             }
@@ -636,34 +653,27 @@ function LV5mob(){
 // LV 6
 let start6State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
+        lvSixBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv6EnemyTxt = game.add.text(507, 96, `x${lv6EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv5EnemyLife = 2;
         LV6mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -675,6 +685,7 @@ let start6State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -704,13 +715,17 @@ function LV6mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start6State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start6State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start6State.playerBar.setPercent(0);
                 clearInterval(monster6ATK);
                 gameOver();
             }
@@ -721,34 +736,27 @@ function LV6mob(){
 // LV 7
 let start7State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
+        lvSevenBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv7EnemyTxt = game.add.text(507, 96, `x${lv7EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv6EnemyLife = 2;
         LV7mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -760,6 +768,7 @@ let start7State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -789,13 +798,17 @@ function LV7mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start7State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start7State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start7State.playerBar.setPercent(0);
                 clearInterval(monster7ATK);
                 gameOver();
             }
@@ -806,34 +819,27 @@ function LV7mob(){
 // LV 8
 let start8State = {
     create: function() {
-        lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
-        lvOneBG.anchor.set(0.5, 0.5);
+        lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
+        lvEightBG.anchor.set(0.5, 0.5);
+        playerSprite = game.add.image(178, 186, 'playerSprite');
         textBar = game.add.image(0, 318, 'textBar');
+        btmLeft = game.add.image(0, 403, 'btmLeft');
+        btmRight = game.add.image(430, 403, 'btmRight');
+        playerBG = game.add.image(101, 426, 'healthBG');
+        monsterBG = game.add.image(528, 426, 'healthBG');
 
         pauseBTN = game.add.button(23, 18, 'pauseBTN', this.pause, this);
         pauseBTN.scale.setTo(0.534, 0.529);
 
-        lv8EnemyTxt = game.add.text(507, 96, `x${lv8EnemyLife}`, { font: '20px press_start_2pregular', fill: '#FF0000' });
-        enemyHeart = game.add.image(507, 116, 'heart');
+        enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
+        this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv7EnemyLife = 2;
         LV8mob();
 
-        playerSprite = game.add.image(278, 247, 'playerSprite');
-        if (playerLife == 3){
-            p1Heart = game.add.image(241, 206, 'heart');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 2){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heart');
-            p3Heart = game.add.image(318, 206, 'heart');
-        } else if (playerLife == 1){
-            p1Heart = game.add.image(241, 206, 'heartDamage');
-            p2Heart = game.add.image(281, 206, 'heartDamage');
-            p3Heart = game.add.image(318, 206, 'heart');
-        }
+        playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
+        this.playerBar = new HealthBar(this.game, playerConfig);
         
         wordSetup();
 
@@ -845,6 +851,7 @@ let start8State = {
         pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');
         pauseScreen.anchor.set(0.5, 0.5);
         logoPause = game.add.image(330, 123, 'logoPause');
+        stopTime();
 
         resumeBTN = game.add.image(352, 277, 'resumeBTN');
         backToTitleBTN = game.add.image(265, 336, 'backToTitleBTN');
@@ -874,13 +881,17 @@ function LV8mob(){
         } else {
             if (playerLife == 3) {
                 playerLife--;
-                p1Heart.loadTexture('heartDamage');
+                start8State.playerBar.setPercent((playerLife / 3)*100);
+                playerWidth = 146;
+                playerX = 256;
             } else if (playerLife == 2) {
                 playerLife--;
-                p2Heart.loadTexture('heartDamage');
+                start8State.playerBar.setPercent(50);
+                playerWidth = 73;
+                playerX = 292.5;
             } else if(playerLife == 1) {
                 playerLife--;
-                p3Heart.loadTexture('heartDamage');
+                start8State.playerBar.setPercent(0);
                 clearInterval(monster8ATK);
                 gameOver();
             }
@@ -965,28 +976,28 @@ function keyPress(e){
         bmd.cls();
         if (lvSet == 1){
             lv1EnemyLife--;
-            lv1EnemyTxt.setText(`x${lv1EnemyLife}`);
+            startState.enemyBar.setPercent((lv1EnemyLife / 2) * 100);
         } else if (lvSet == 2) {
             lv2EnemyLife--;
-            lv2EnemyTxt.setText(`x${lv2EnemyLife}`);
+            start2State.enemyBar.setPercent((lv2EnemyLife / 2) * 100);
         } else if (lvSet == 3) {
             lv3EnemyLife--;
-            lv3EnemyTxt.setText(`x${lv3EnemyLife}`);
+            start3State.enemyBar.setPercent((lv3EnemyLife / 2) * 100);
         } else if (lvSet == 4) {
             lv4EnemyLife--;
-            lv4EnemyTxt.setText(`x${lv4EnemyLife}`);
+            start4State.enemyBar.setPercent((lv4EnemyLife / 2) * 100);
         } else if (lvSet == 5) {
             lv5EnemyLife--;
-            lv5EnemyTxt.setText(`x${lv5EnemyLife}`);
+            start5State.enemyBar.setPercent((lv5EnemyLife / 2) * 100);
         } else if (lvSet == 6) {
             lv6EnemyLife--;
-            lv6EnemyTxt.setText(`x${lv6EnemyLife}`);
+            start6State.enemyBar.setPercent((lv6EnemyLife / 2) * 100);
         } else if (lvSet == 7) {
             lv7EnemyLife--;
-            lv7EnemyTxt.setText(`x${lv7EnemyLife}`);
+            start7State.enemyBar.setPercent((lv7EnemyLife / 2) * 100);
         } else if (lvSet == 8) {
             lv8EnemyLife--;
-            lv8EnemyTxt.setText(`x${lv8EnemyLife}`);
+            start8State.enemyBar.setPercent((lv8EnemyLife / 2) * 100);
         }
 
 
