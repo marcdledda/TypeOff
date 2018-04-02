@@ -44,7 +44,6 @@ let enemyConfig;
 let forestMonster = n0_preload.forestMonster;
 let lv1EnemyTxt;
 let lv1EnemyLife = 2;
-let enemyHeart = n0_preload.enemyHeart;
 let monsterATK;
 
 let lv2EnemyTxt;

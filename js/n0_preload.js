@@ -29,7 +29,6 @@ let backToTitleBTN;
 let textBar;
 let tutorialScreen;
 let startBTN;
-let enemyHeart;
 let forestMonster;
 let swampMonster;
 let playerSprite;
@@ -173,8 +172,6 @@ let preloadState = {
         game.load.image('tutorialScreen', 'js/media/tutorial.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
         game.load.image('healthBG', 'js/media/healthBG.png');
-        game.load.image('heart', 'js/media/heart.png');
-        game.load.image('heartDamage', 'js/media/heartDamage.png');
         game.load.image('forestMonster', 'js/media/forestMonster.png');
         game.load.image('swampMonster', 'js/media/swampMonster.png');
         game.load.image('playerSprite', 'js/media/player.png');
