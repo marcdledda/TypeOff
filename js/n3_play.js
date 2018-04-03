@@ -49,44 +49,44 @@ let lvSet = 1;
 let enemyBar;
 let enemyConfig;
 
-let forestMonster = n0_preload.forestMonster;
+let Mon1;
 let lv1EnemyTxt;
 let lv1EnemyLife = 2;
 let monsterATK;
 
 let lv2EnemyTxt;
 let lv2EnemyLife = 2;
-let swampMonster = n0_preload.swampMonster;
+let Mon2;
 let monster2ATK;
 
 let lv3EnemyTxt;
 let lv3EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon3;
 let monster3ATK;
 
 let lv4EnemyTxt;
 let lv4EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon4;
 let monster4ATK;
 
 let lv5EnemyTxt;
 let lv5EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon5;
 let monster5ATK;
 
 let lv6EnemyTxt;
 let lv6EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon6;
 let monster6ATK;
 
 let lv7EnemyTxt;
 let lv7EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon7;
 let monster7ATK;
 
 let lv8EnemyTxt;
 let lv8EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon8;
 let monster8ATK;
 
 let playerSprite = n0_preload.playerSprite;
@@ -247,7 +247,7 @@ let startState = {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
-        forestMonster = game.add.image(427, 48, 'forestMonster');
+        Mon1 = game.add.image(522, 26, 'Mon1');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -325,7 +325,7 @@ let start2State = {
         lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
         lvTwoBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
-        swampMonster = game.add.image(427, 18, 'swampMonster');
+        Mon2 = game.add.image(427, 18, 'Mon2');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -409,6 +409,7 @@ let start3State = {
         lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
         lvThreeBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
+        Mon3 = game.add.image(522, 48, 'Mon3');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -420,7 +421,6 @@ let start3State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv2EnemyLife = 2;
         LV3mob();
@@ -492,6 +492,7 @@ let start4State = {
         lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
         lvFourBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
+        Mon4 = game.add.image(522, 84, 'Mon4');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -503,7 +504,6 @@ let start4State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv3EnemyLife = 2;
         LV4mob();
@@ -575,6 +575,7 @@ let start5State = {
         lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
         lvFiveBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
+        Mon5 = game.add.image(560, 51, 'Mon5');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -586,7 +587,6 @@ let start5State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv4EnemyLife = 2;
         LV5mob();
@@ -658,6 +658,7 @@ let start6State = {
         lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
         lvSixBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
+        Mon6 = game.add.image(522, 18, 'Mon6');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -669,7 +670,6 @@ let start6State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv5EnemyLife = 2;
         LV6mob();
@@ -741,6 +741,7 @@ let start7State = {
         lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
         lvSevenBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
+        Mon7 = game.add.image(574, 208, 'Mon7');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -824,6 +825,7 @@ let start8State = {
         lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
         lvEightBG.anchor.set(0.5, 0.5);
         playerSprite = game.add.image(178, 186, 'playerSprite');
+        Mon8 = game.add.image(500, 175, 'Mon8');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
