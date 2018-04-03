@@ -168,6 +168,14 @@ let preloadState = {
         game.load.image('lvSixBG', 'js/media/levelSix.png');
         game.load.image('lvSevenBG', 'js/media/levelSeven.png');
         game.load.image('lvEightBG', 'js/media/levelEight.png');
+        game.load.image('lv1', 'js/media/lv1.png');
+        game.load.image('lv2', 'js/media/lv2.png');
+        game.load.image('lv3', 'js/media/lv3.png');
+        game.load.image('lv4', 'js/media/lv4.png');
+        game.load.image('lv5', 'js/media/lv5.png');
+        game.load.image('lv6', 'js/media/lv6.png');
+        game.load.image('lv7', 'js/media/lv7.png');
+        game.load.image('lv8', 'js/media/lv8.png');
         game.load.image('pauseBTN', 'js/media/pauseBTN.png');
         game.load.image('pauseScreen', 'js/media/pauseScreen.png');
         game.load.image('logoPause', 'js/media/logoPause.png');
@@ -177,6 +185,7 @@ let preloadState = {
         game.load.image('btmLeft', 'js/media/btmLeft.png');
         game.load.image('btmRight', 'js/media/btmRight.png');
         game.load.image('tutorialScreen', 'js/media/tutorial.png');
+        game.load.image('startLoad', 'js/media/startLoad.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
         game.load.image('healthBG', 'js/media/healthBG.png');
         game.load.image('forestMonster', 'js/media/forestMonster.png');

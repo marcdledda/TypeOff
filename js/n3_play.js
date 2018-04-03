@@ -25,6 +25,7 @@ let backToTitleBTN = n0_preload.backToTitleBTN;
 let textBar = n0_preload.textBar;
 let tutorialScreen = n0_preload.tutorialScreen;
 let startBTN = n0_preload.startBTN;
+let startLoad;
 let btmLeft;
 let btmRight;
 let playerBG;
@@ -185,11 +186,12 @@ let transitionState = {
         }
     },
     levelShow: function(){
-        transitionTxT = game.add.text(377, 112, `Level ${lvSet}`, { font: '20px press_start_2pregular', fill: '#000000' });
+        transitionTxT = game.add.image(427, 116, `lv${lvSet}`);
+        transitionTxT.anchor.set(0.5, 0.5);
         transitionTxT.alpha = 0;
         showLV = game.add.tween(transitionTxT).to( { alpha: 1 }, 250, Phaser.Easing.Linear.None);
-        nothingLV = game.add.tween(transitionTxT).to( { y:112 , alpha: 1 }, 1000, Phaser.Easing.Linear.None);
-        hideLV = game.add.tween(transitionTxT).to( { y:137 , alpha: 0 }, 1000, Phaser.Easing.Linear.None);
+        nothingLV = game.add.tween(transitionTxT).to( { y:116 , alpha: 1 }, 1000, Phaser.Easing.Linear.None);
+        hideLV = game.add.tween(transitionTxT).to( { y:141 , alpha: 0 }, 1000, Phaser.Easing.Linear.None);
         hideLV.onComplete.addOnce(function(){
             if (lvSet == 1) {
                 game.state.start('start');
@@ -227,7 +229,7 @@ let playState = {
 
         pauseBTN = game.add.image(23, 18, 'pauseBTN');
         pauseBTN.scale.setTo(0.534, 0.529);
-        startBTN = game.add.button(357, 382, 'startBTN', this.start, this);
+        startLoad = game.add.image(357, 382, 'startLoad');
 
         wordData();
         restart();
@@ -920,6 +922,8 @@ function wordData() {
         n0_preload.getWordData().then(
             (resolve) => {
                 wordLibrary = resolve;
+                startLoad.destroy();
+                startBTN = game.add.button(357, 382, 'startBTN', playState.start);
             },
             (reject) => {
                 console.log("didn't load!");
