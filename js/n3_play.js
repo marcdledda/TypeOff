@@ -34,6 +34,7 @@ let transitionTxT;
 let showLV;
 let hideLV;
 let nothingLV;
+let pAnim;
 
 let gameOverScreen = n0_preload.gameOverScreen;
 let gameOverScoreTxT;
@@ -49,44 +50,44 @@ let lvSet = 1;
 let enemyBar;
 let enemyConfig;
 
-let forestMonster = n0_preload.forestMonster;
+let Mon1;
 let lv1EnemyTxt;
 let lv1EnemyLife = 2;
 let monsterATK;
 
 let lv2EnemyTxt;
 let lv2EnemyLife = 2;
-let swampMonster = n0_preload.swampMonster;
+let Mon2;
 let monster2ATK;
 
 let lv3EnemyTxt;
 let lv3EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon3;
 let monster3ATK;
 
 let lv4EnemyTxt;
 let lv4EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon4;
 let monster4ATK;
 
 let lv5EnemyTxt;
 let lv5EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon5;
 let monster5ATK;
 
 let lv6EnemyTxt;
 let lv6EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon6;
 let monster6ATK;
 
 let lv7EnemyTxt;
 let lv7EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon7;
 let monster7ATK;
 
 let lv8EnemyTxt;
 let lv8EnemyLife = 2;
-// let swampMonster = n0_preload.swampMonster;
+let Mon8;
 let monster8ATK;
 
 let playerSprite = n0_preload.playerSprite;
@@ -140,7 +141,8 @@ let transitionState = {
             lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
             lvEightBG.anchor.set(0.5, 0.5);
         }
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -233,6 +235,10 @@ let playState = {
 
         wordData();
         restart();
+        if (wordData !== undefined){
+            startLoad.destroy();
+            startBTN = game.add.button(357, 382, 'startBTN', this.start);
+        }
     },
     start: function() {
         if (wordLibrary !== undefined){
@@ -246,8 +252,10 @@ let startState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
-        forestMonster = game.add.image(427, 48, 'forestMonster');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon1 = game.add.image(522, 26, 'Mon1');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -324,8 +332,10 @@ let start2State = {
     create: function() {
         lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
         lvTwoBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
-        swampMonster = game.add.image(427, 18, 'swampMonster');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon2 = game.add.image(427, 18, 'Mon2');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -408,7 +418,10 @@ let start3State = {
     create: function() {
         lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
         lvThreeBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon3 = game.add.image(522, 48, 'Mon3');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -420,7 +433,6 @@ let start3State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv2EnemyLife = 2;
         LV3mob();
@@ -491,7 +503,10 @@ let start4State = {
     create: function() {
         lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
         lvFourBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon4 = game.add.image(522, 84, 'Mon4');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -503,7 +518,6 @@ let start4State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv3EnemyLife = 2;
         LV4mob();
@@ -574,7 +588,10 @@ let start5State = {
     create: function() {
         lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
         lvFiveBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon5 = game.add.image(560, 51, 'Mon5');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -586,7 +603,6 @@ let start5State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv4EnemyLife = 2;
         LV5mob();
@@ -657,7 +673,10 @@ let start6State = {
     create: function() {
         lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
         lvSixBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon6 = game.add.image(522, 18, 'Mon6');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -669,7 +688,6 @@ let start6State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
         lv5EnemyLife = 2;
         LV6mob();
@@ -740,7 +758,10 @@ let start7State = {
     create: function() {
         lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
         lvSevenBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon7 = game.add.image(574, 208, 'Mon7');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -823,7 +844,10 @@ let start8State = {
     create: function() {
         lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
         lvEightBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.image(178, 186, 'playerSprite');
+        playerSprite = game.add.sprite(140, 163, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        pAnim.onComplete.add(transitioning, this);
+        Mon8 = game.add.image(500, 175, 'Mon8');
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -980,55 +1004,63 @@ function keyPress(e){
         bmd.cls();
         if (lvSet == 1){
             lv1EnemyLife--;
+            playerSprite.animations.play('pATK');
             startState.enemyBar.setPercent((lv1EnemyLife / 2) * 100);
         } else if (lvSet == 2) {
             lv2EnemyLife--;
+            playerSprite.animations.play('pATK');
             start2State.enemyBar.setPercent((lv2EnemyLife / 2) * 100);
         } else if (lvSet == 3) {
             lv3EnemyLife--;
+            playerSprite.animations.play('pATK');
             start3State.enemyBar.setPercent((lv3EnemyLife / 2) * 100);
         } else if (lvSet == 4) {
             lv4EnemyLife--;
+            playerSprite.animations.play('pATK');
             start4State.enemyBar.setPercent((lv4EnemyLife / 2) * 100);
         } else if (lvSet == 5) {
             lv5EnemyLife--;
+            playerSprite.animations.play('pATK');
             start5State.enemyBar.setPercent((lv5EnemyLife / 2) * 100);
         } else if (lvSet == 6) {
             lv6EnemyLife--;
+            playerSprite.animations.play('pATK');
             start6State.enemyBar.setPercent((lv6EnemyLife / 2) * 100);
         } else if (lvSet == 7) {
             lv7EnemyLife--;
+            playerSprite.animations.play('pATK');
             start7State.enemyBar.setPercent((lv7EnemyLife / 2) * 100);
         } else if (lvSet == 8) {
             lv8EnemyLife--;
+            playerSprite.animations.play('pATK');
             start8State.enemyBar.setPercent((lv8EnemyLife / 2) * 100);
         }
 
 
         if (lv1EnemyLife == 0) {
             lvSet = 2;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv2EnemyLife == 0) {
             lvSet = 3;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv3EnemyLife == 0) {
             lvSet = 4;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv4EnemyLife == 0) {
             lvSet = 5;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv5EnemyLife == 0) {
             lvSet = 6;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv6EnemyLife == 0) {
             lvSet = 7;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv7EnemyLife == 0) {
             lvSet = 8;
-            game.state.start('transition');
+            playerSprite.animations.play('pATK');
         } else if (lv8EnemyLife == 0) {
             playerScore = playerScore + 452;
-            gameOver();
+            playerSprite.animations.play('pATK');
         }
         else {
             wordSetup();
@@ -1038,6 +1070,26 @@ function keyPress(e){
 }
 // WORD PART //
 ///////////////
+
+function transitioning(){
+    if (lv1EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv2EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv3EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv4EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv5EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv6EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv7EnemyLife == 0) {
+        game.state.start('transition');
+    } else if (lv8EnemyLife == 0) {
+        gameOver();
+    }
+}
 
 function gameOver(){
     pauseScreen = game.add.image(game.world.width*0.5, game.world.height*0.5, 'pauseScreen');

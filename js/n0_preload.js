@@ -29,8 +29,6 @@ let backToTitleBTN;
 let textBar;
 let tutorialScreen;
 let startBTN;
-let forestMonster;
-let swampMonster;
 let playerSprite;
 let p1Heart;
 let p2Heart;
@@ -188,9 +186,16 @@ let preloadState = {
         game.load.image('startLoad', 'js/media/startLoad.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
         game.load.image('healthBG', 'js/media/healthBG.png');
-        game.load.image('forestMonster', 'js/media/forestMonster.png');
-        game.load.image('swampMonster', 'js/media/swampMonster.png');
+        game.load.image('Mon1', 'js/media/1Mon.png');
+        game.load.image('Mon2', 'js/media/2Mon.png');
+        game.load.image('Mon3', 'js/media/3Mon.png');
+        game.load.image('Mon4', 'js/media/4Mon.png');
+        game.load.image('Mon5', 'js/media/5Mon.png');
+        game.load.image('Mon6', 'js/media/6Mon.png');
+        game.load.image('Mon7', 'js/media/7Mon.png');
+        game.load.image('Mon8', 'js/media/8Mon.png');
         game.load.image('playerSprite', 'js/media/player.png');
+        game.load.spritesheet('playerATK', 'js/media/playerATK.png', 334, 205, 5);
         game.load.image('gameOver', 'js/media/gameOver.png');
         game.load.image('gameOverBack', 'js/media/backToTitleBLK.png');
 
@@ -212,4 +217,4 @@ let preloadState = {
     }
 };
 
-module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, p1Heart, p2Heart, p3Heart, heartDamage, forestMonster, playerSprite, swampMonster, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore, getBoardDate, checkUser, IDjson, searchUser};
+module.exports = {game, preloadState, titleIMG, menuIMG, getWordData, newGameBTN, myScoresBTN, followingBTN, leaderboardsBTN, logInBTN, lvOneBG, logoScores, xBTN, defaultMenu, logoFollowing, logoLeaderboards, pauseBTN, pauseScreen, logoPause, resumeBTN, backToTitleBTN, textBar, tutorialScreen, startBTN, p1Heart, p2Heart, p3Heart, heartDamage, playerSprite, gameOver, gameOverBack, logOutBTN, scoreTxT, getScoreData, scoreGroup, scoreInfo, newScore, getBoardDate, checkUser, IDjson, searchUser};
