@@ -52,41 +52,41 @@ let enemyConfig;
 
 let Mon1;
 let lv1EnemyTxt;
-let lv1EnemyLife = 2;
+let lv1EnemyLife = 3;
 let monsterATK;
 
 let lv2EnemyTxt;
-let lv2EnemyLife = 2;
+let lv2EnemyLife = 5;
 let Mon2;
 let monster2ATK;
 
 let lv3EnemyTxt;
-let lv3EnemyLife = 2;
+let lv3EnemyLife = 7;
 let Mon3;
 let monster3ATK;
 
 let lv4EnemyTxt;
-let lv4EnemyLife = 2;
+let lv4EnemyLife = 9;
 let Mon4;
 let monster4ATK;
 
 let lv5EnemyTxt;
-let lv5EnemyLife = 2;
+let lv5EnemyLife = 11;
 let Mon5;
 let monster5ATK;
 
 let lv6EnemyTxt;
-let lv6EnemyLife = 2;
+let lv6EnemyLife = 13;
 let Mon6;
 let monster6ATK;
 
 let lv7EnemyTxt;
-let lv7EnemyLife = 2;
+let lv7EnemyLife = 15;
 let Mon7;
 let monster7ATK;
 
 let lv8EnemyTxt;
-let lv8EnemyLife = 2;
+let lv8EnemyLife = 17;
 let Mon8;
 let monster8ATK;
 
@@ -349,7 +349,7 @@ let start2State = {
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
 
-        lv1EnemyLife = 2;
+        lv1EnemyLife = 3;
         LV2mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -434,7 +434,7 @@ let start3State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv2EnemyLife = 2;
+        lv2EnemyLife = 5;
         LV3mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -519,7 +519,7 @@ let start4State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv3EnemyLife = 2;
+        lv3EnemyLife = 7;
         LV4mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -604,7 +604,7 @@ let start5State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv4EnemyLife = 2;
+        lv4EnemyLife = 9;
         LV5mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -689,7 +689,7 @@ let start6State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv5EnemyLife = 2;
+        lv5EnemyLife = 11;
         LV6mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -775,7 +775,7 @@ let start7State = {
         this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        lv6EnemyLife = 2;
+        lv6EnemyLife = 13;
         LV7mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -861,7 +861,7 @@ let start8State = {
         this.enemyBar = new HealthBar(this.game, enemyConfig);
         // swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        lv7EnemyLife = 2;
+        lv7EnemyLife = 15;
         LV8mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -1005,35 +1005,35 @@ function keyPress(e){
         if (lvSet == 1){
             lv1EnemyLife--;
             playerSprite.animations.play('pATK');
-            startState.enemyBar.setPercent((lv1EnemyLife / 2) * 100);
+            startState.enemyBar.setPercent((lv1EnemyLife / 3) * 100);
         } else if (lvSet == 2) {
             lv2EnemyLife--;
             playerSprite.animations.play('pATK');
-            start2State.enemyBar.setPercent((lv2EnemyLife / 2) * 100);
+            start2State.enemyBar.setPercent((lv2EnemyLife / 5) * 100);
         } else if (lvSet == 3) {
             lv3EnemyLife--;
             playerSprite.animations.play('pATK');
-            start3State.enemyBar.setPercent((lv3EnemyLife / 2) * 100);
+            start3State.enemyBar.setPercent((lv3EnemyLife / 7) * 100);
         } else if (lvSet == 4) {
             lv4EnemyLife--;
             playerSprite.animations.play('pATK');
-            start4State.enemyBar.setPercent((lv4EnemyLife / 2) * 100);
+            start4State.enemyBar.setPercent((lv4EnemyLife / 9) * 100);
         } else if (lvSet == 5) {
             lv5EnemyLife--;
             playerSprite.animations.play('pATK');
-            start5State.enemyBar.setPercent((lv5EnemyLife / 2) * 100);
+            start5State.enemyBar.setPercent((lv5EnemyLife / 11) * 100);
         } else if (lvSet == 6) {
             lv6EnemyLife--;
             playerSprite.animations.play('pATK');
-            start6State.enemyBar.setPercent((lv6EnemyLife / 2) * 100);
+            start6State.enemyBar.setPercent((lv6EnemyLife / 13) * 100);
         } else if (lvSet == 7) {
             lv7EnemyLife--;
             playerSprite.animations.play('pATK');
-            start7State.enemyBar.setPercent((lv7EnemyLife / 2) * 100);
+            start7State.enemyBar.setPercent((lv7EnemyLife / 15) * 100);
         } else if (lvSet == 8) {
             lv8EnemyLife--;
             playerSprite.animations.play('pATK');
-            start8State.enemyBar.setPercent((lv8EnemyLife / 2) * 100);
+            start8State.enemyBar.setPercent((lv8EnemyLife / 17) * 100);
         }
 
 
@@ -1114,14 +1114,14 @@ function restart(){
     playerScore = 0;
     playerLife = 3;
     lvSet = 1;
-    lv1EnemyLife = 2;
-    lv2EnemyLife = 2;
-    lv3EnemyLife = 2;
-    lv4EnemyLife = 2;
-    lv5EnemyLife = 2;
-    lv6EnemyLife = 2;
-    lv7EnemyLife = 2;
-    lv8EnemyLife = 2;
+    lv1EnemyLife = 3;
+    lv2EnemyLife = 5;
+    lv3EnemyLife = 7;
+    lv4EnemyLife = 9;
+    lv5EnemyLife = 11;
+    lv6EnemyLife = 13;
+    lv7EnemyLife = 15;
+    lv8EnemyLife = 17;
 }
 
 function postScore(){
