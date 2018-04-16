@@ -324,7 +324,7 @@ function LV1mob(){
             clearInterval(monsterATK);
             gameOver();
         }
-    }, 10000);
+    }, 1500);
 }
 
 //LV 2
@@ -410,7 +410,7 @@ function LV2mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 3333);
 }
 
 // LV 3
@@ -495,7 +495,7 @@ function LV3mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 5833);
 }
 
 // LV 4
@@ -580,7 +580,7 @@ function LV4mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 9000);
 }
 
 // LV 5
@@ -665,7 +665,7 @@ function LV5mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 12833);
 }
 
 // LV 6
@@ -750,7 +750,7 @@ function LV6mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 17333);
 }
 
 // LV 7
@@ -836,7 +836,7 @@ function LV7mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 22500);
 }
 
 // LV 8
@@ -922,7 +922,7 @@ function LV8mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, 28333);
 }
 
 ///////////////
@@ -1059,13 +1059,13 @@ function keyPress(e){
             lvSet = 8;
             playerSprite.animations.play('pATK');
         } else if (lv8EnemyLife == 0) {
-            playerScore = playerScore + 452;
+            playerScore = playerScore + 1250;
             playerSprite.animations.play('pATK');
         }
         else {
             wordSetup();
         }
-        playerScore = playerScore + 452;
+        playerScore = playerScore + 1250;
     }
 }
 // WORD PART //
