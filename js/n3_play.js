@@ -1041,35 +1041,27 @@ function keyPress(e){
         if (lv1EnemyLife == 0) {
             lvSet = 2;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv2EnemyLife == 0) {
             lvSet = 3;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv3EnemyLife == 0) {
             lvSet = 4;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv4EnemyLife == 0) {
             lvSet = 5;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv5EnemyLife == 0) {
             lvSet = 6;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv6EnemyLife == 0) {
             lvSet = 7;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv7EnemyLife == 0) {
             lvSet = 8;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         } else if (lv8EnemyLife == 0) {
             playerScore = playerScore + 1250;
             playerSprite.animations.play('pATK');
-            console.log(enemyLifeDefault);
         }
         else {
             wordSetup();
