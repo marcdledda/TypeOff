@@ -50,43 +50,46 @@ let lvSet = 1;
 let enemyBar;
 let enemyConfig;
 
+let enemyLifeDefault = {lv1: 6, lv2: 7, lv3: 9, lv4: 11, lv5: 13, lv6: 15, lv7: 17, lv8: 18};
+let enemyATKRate = {lv1: 20000, lv2: 20000, lv3: 20000, lv4: 20000, lv5: 20000, lv6: 20000, lv7: 20000, lv8: 20000};
+
 let Mon1;
 let lv1EnemyTxt;
-let lv1EnemyLife = 2;
+let lv1EnemyLife = enemyLifeDefault.lv1;
 let monsterATK;
 
 let lv2EnemyTxt;
-let lv2EnemyLife = 2;
+let lv2EnemyLife = enemyLifeDefault.lv2;
 let Mon2;
 let monster2ATK;
 
 let lv3EnemyTxt;
-let lv3EnemyLife = 2;
+let lv3EnemyLife = enemyLifeDefault.lv3;
 let Mon3;
 let monster3ATK;
 
 let lv4EnemyTxt;
-let lv4EnemyLife = 2;
+let lv4EnemyLife = enemyLifeDefault.lv4;
 let Mon4;
 let monster4ATK;
 
 let lv5EnemyTxt;
-let lv5EnemyLife = 2;
+let lv5EnemyLife = enemyLifeDefault.lv5;
 let Mon5;
 let monster5ATK;
 
 let lv6EnemyTxt;
-let lv6EnemyLife = 2;
+let lv6EnemyLife = enemyLifeDefault.lv6;
 let Mon6;
 let monster6ATK;
 
 let lv7EnemyTxt;
-let lv7EnemyLife = 2;
+let lv7EnemyLife = enemyLifeDefault.lv7;
 let Mon7;
 let monster7ATK;
 
 let lv8EnemyTxt;
-let lv8EnemyLife = 2;
+let lv8EnemyLife = enemyLifeDefault.lv8;
 let Mon8;
 let monster8ATK;
 
@@ -324,7 +327,7 @@ function LV1mob(){
             clearInterval(monsterATK);
             gameOver();
         }
-    }, 10000);
+    }, enemyATKRate.lv1);
 }
 
 //LV 2
@@ -349,7 +352,7 @@ let start2State = {
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
 
-        lv1EnemyLife = 2;
+        lv1EnemyLife = enemyLifeDefault.lv1;
         LV2mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -410,7 +413,7 @@ function LV2mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv2);
 }
 
 // LV 3
@@ -434,7 +437,7 @@ let start3State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv2EnemyLife = 2;
+        lv2EnemyLife = enemyLifeDefault.lv2;
         LV3mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -495,7 +498,7 @@ function LV3mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv3);
 }
 
 // LV 4
@@ -519,7 +522,7 @@ let start4State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv3EnemyLife = 2;
+        lv3EnemyLife = enemyLifeDefault.lv3;
         LV4mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -580,7 +583,7 @@ function LV4mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv4);
 }
 
 // LV 5
@@ -604,7 +607,7 @@ let start5State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv4EnemyLife = 2;
+        lv4EnemyLife = enemyLifeDefault.lv4;
         LV5mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -665,7 +668,7 @@ function LV5mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv5);
 }
 
 // LV 6
@@ -689,7 +692,7 @@ let start6State = {
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
 
-        lv5EnemyLife = 2;
+        lv5EnemyLife = enemyLifeDefault.lv5;
         LV6mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -750,7 +753,7 @@ function LV6mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv6);
 }
 
 // LV 7
@@ -773,9 +776,8 @@ let start7State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        lv6EnemyLife = 2;
+        lv6EnemyLife = enemyLifeDefault.lv6;
         LV7mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -836,7 +838,7 @@ function LV7mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv7);
 }
 
 // LV 8
@@ -859,9 +861,8 @@ let start8State = {
 
         enemyConfig= {width: 219, height: 23, x: 637.5, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 200, flipped: false};
         this.enemyBar = new HealthBar(this.game, enemyConfig);
-        // swampMonster = game.add.image(547, 60, 'swampMonster');
 
-        lv7EnemyLife = 2;
+        lv7EnemyLife = enemyLifeDefault.lv7;
         LV8mob();
 
         playerConfig = {width: playerWidth, height: 23, x: playerX, y: 441.5, bg : {color: '#000000'}, bar: {color: '#00FF08'}, animationDuration: 0, flipped: true};
@@ -922,7 +923,7 @@ function LV8mob(){
                 gameOver();
             }
         }
-    }, 10000);
+    }, enemyATKRate.lv8);
 }
 
 ///////////////
@@ -1005,35 +1006,35 @@ function keyPress(e){
         if (lvSet == 1){
             lv1EnemyLife--;
             playerSprite.animations.play('pATK');
-            startState.enemyBar.setPercent((lv1EnemyLife / 2) * 100);
+            startState.enemyBar.setPercent((lv1EnemyLife / enemyLifeDefault.lv1) * 100);
         } else if (lvSet == 2) {
             lv2EnemyLife--;
             playerSprite.animations.play('pATK');
-            start2State.enemyBar.setPercent((lv2EnemyLife / 2) * 100);
+            start2State.enemyBar.setPercent((lv2EnemyLife / enemyLifeDefault.lv2) * 100);
         } else if (lvSet == 3) {
             lv3EnemyLife--;
             playerSprite.animations.play('pATK');
-            start3State.enemyBar.setPercent((lv3EnemyLife / 2) * 100);
+            start3State.enemyBar.setPercent((lv3EnemyLife / enemyLifeDefault.lv3) * 100);
         } else if (lvSet == 4) {
             lv4EnemyLife--;
             playerSprite.animations.play('pATK');
-            start4State.enemyBar.setPercent((lv4EnemyLife / 2) * 100);
+            start4State.enemyBar.setPercent((lv4EnemyLife / enemyLifeDefault.lv4) * 100);
         } else if (lvSet == 5) {
             lv5EnemyLife--;
             playerSprite.animations.play('pATK');
-            start5State.enemyBar.setPercent((lv5EnemyLife / 2) * 100);
+            start5State.enemyBar.setPercent((lv5EnemyLife / enemyLifeDefault.lv5) * 100);
         } else if (lvSet == 6) {
             lv6EnemyLife--;
             playerSprite.animations.play('pATK');
-            start6State.enemyBar.setPercent((lv6EnemyLife / 2) * 100);
+            start6State.enemyBar.setPercent((lv6EnemyLife / enemyLifeDefault.lv6) * 100);
         } else if (lvSet == 7) {
             lv7EnemyLife--;
             playerSprite.animations.play('pATK');
-            start7State.enemyBar.setPercent((lv7EnemyLife / 2) * 100);
+            start7State.enemyBar.setPercent((lv7EnemyLife / enemyLifeDefault.lv7) * 100);
         } else if (lvSet == 8) {
             lv8EnemyLife--;
             playerSprite.animations.play('pATK');
-            start8State.enemyBar.setPercent((lv8EnemyLife / 2) * 100);
+            start8State.enemyBar.setPercent((lv8EnemyLife / enemyLifeDefault.lv8) * 100);
         }
 
 
@@ -1059,13 +1060,13 @@ function keyPress(e){
             lvSet = 8;
             playerSprite.animations.play('pATK');
         } else if (lv8EnemyLife == 0) {
-            playerScore = playerScore + 452;
+            playerScore = playerScore + 1250;
             playerSprite.animations.play('pATK');
         }
         else {
             wordSetup();
         }
-        playerScore = playerScore + 452;
+        playerScore = playerScore + 1250;
     }
 }
 // WORD PART //
@@ -1114,15 +1115,26 @@ function restart(){
     playerScore = 0;
     playerLife = 3;
     lvSet = 1;
-    lv1EnemyLife = 2;
-    lv2EnemyLife = 2;
-    lv3EnemyLife = 2;
-    lv4EnemyLife = 2;
-    lv5EnemyLife = 2;
-    lv6EnemyLife = 2;
-    lv7EnemyLife = 2;
-    lv8EnemyLife = 2;
+    lv1EnemyLife = enemyLifeDefault.lv1;
+    lv2EnemyLife = enemyLifeDefault.lv2;
+    lv3EnemyLife = enemyLifeDefault.lv3;
+    lv4EnemyLife = enemyLifeDefault.lv4;
+    lv5EnemyLife = enemyLifeDefault.lv5;
+    lv6EnemyLife = enemyLifeDefault.lv6;
+    lv7EnemyLife = enemyLifeDefault.lv7;
+    lv8EnemyLife = enemyLifeDefault.lv8;
 }
+
+// function restartEnemyHealth(){
+//     lv1EnemyLife = enemyLifeDefault.lv1;
+//     lv2EnemyLife = enemyLifeDefault.lv2;
+//     lv3EnemyLife = enemyLifeDefault.lv3;
+//     lv4EnemyLife = enemyLifeDefault.lv4;
+//     lv5EnemyLife = enemyLifeDefault.lv5;
+//     lv6EnemyLife = enemyLifeDefault.lv6;
+//     lv7EnemyLife = enemyLifeDefault.lv7;
+//     lv8EnemyLife = enemyLifeDefault.lv8;
+// }
 
 function postScore(){
     let scoreObj = buildScore();
