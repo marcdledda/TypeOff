@@ -144,8 +144,8 @@ let transitionState = {
             lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
             lvEightBG.anchor.set(0.5, 0.5);
         }
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -255,8 +255,8 @@ let startState = {
     create: function() {
         lvOneBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvOneBG');
         lvOneBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon1 = game.add.image(522, 26, 'Mon1');
         textBar = game.add.image(0, 318, 'textBar');
@@ -335,8 +335,8 @@ let start2State = {
     create: function() {
         lvTwoBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvTwoBG');
         lvTwoBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon2 = game.add.image(427, 18, 'Mon2');
         textBar = game.add.image(0, 318, 'textBar');
@@ -421,8 +421,8 @@ let start3State = {
     create: function() {
         lvThreeBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvThreeBG');
         lvThreeBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon3 = game.add.image(522, 48, 'Mon3');
         textBar = game.add.image(0, 318, 'textBar');
@@ -506,8 +506,8 @@ let start4State = {
     create: function() {
         lvFourBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFourBG');
         lvFourBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon4 = game.add.image(522, 84, 'Mon4');
         textBar = game.add.image(0, 318, 'textBar');
@@ -591,8 +591,8 @@ let start5State = {
     create: function() {
         lvFiveBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvFiveBG');
         lvFiveBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon5 = game.add.image(560, 51, 'Mon5');
         textBar = game.add.image(0, 318, 'textBar');
@@ -676,8 +676,8 @@ let start6State = {
     create: function() {
         lvSixBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSixBG');
         lvSixBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon6 = game.add.image(522, 18, 'Mon6');
         textBar = game.add.image(0, 318, 'textBar');
@@ -761,8 +761,8 @@ let start7State = {
     create: function() {
         lvSevenBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvSevenBG');
         lvSevenBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon7 = game.add.image(574, 208, 'Mon7');
         textBar = game.add.image(0, 318, 'textBar');
@@ -846,8 +846,8 @@ let start8State = {
     create: function() {
         lvEightBG = game.add.image(game.world.width*0.5, game.world.height*0.5, 'lvEightBG');
         lvEightBG.anchor.set(0.5, 0.5);
-        playerSprite = game.add.sprite(140, 163, 'playerATK');
-        pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,0], 24);
+        playerSprite = game.add.sprite(185, 176, 'playerATK');
+        pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
         Mon8 = game.add.image(500, 175, 'Mon8');
         textBar = game.add.image(0, 318, 'textBar');

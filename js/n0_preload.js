@@ -195,7 +195,7 @@ let preloadState = {
         game.load.image('Mon7', 'js/media/7Mon.png');
         game.load.image('Mon8', 'js/media/8Mon.png');
         game.load.image('playerSprite', 'js/media/player.png');
-        game.load.spritesheet('playerATK', 'js/media/playerATK.png', 334, 205, 5);
+        game.load.spritesheet('playerATK', 'js/media/playerATK.png', 299, 186, 5);
         game.load.image('gameOver', 'js/media/gameOver.png');
         game.load.image('gameOverBack', 'js/media/backToTitleBLK.png');
 
