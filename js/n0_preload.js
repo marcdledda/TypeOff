@@ -186,7 +186,7 @@ let preloadState = {
         game.load.image('startLoad', 'js/media/startLoad.png');
         game.load.image('startBTN', 'js/media/startBTN.png');
         game.load.image('healthBG', 'js/media/healthBG.png');
-        game.load.image('Mon1', 'js/media/1Mon.png');
+        game.load.spritesheet('Mon1', 'js/media/1Mon.png', 387, 386, 4);
         game.load.image('Mon2', 'js/media/2Mon.png');
         game.load.image('Mon3', 'js/media/3Mon.png');
         game.load.image('Mon4', 'js/media/4Mon.png');

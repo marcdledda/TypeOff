@@ -54,6 +54,7 @@ let enemyLifeDefault = {lv1: 6, lv2: 7, lv3: 9, lv4: 11, lv5: 13, lv6: 15, lv7: 
 let enemyATKRate = {lv1: 20000, lv2: 20000, lv3: 20000, lv4: 20000, lv5: 20000, lv6: 20000, lv7: 20000, lv8: 20000};
 
 let Mon1;
+let mon1Anim;
 let lv1EnemyTxt;
 let lv1EnemyLife = enemyLifeDefault.lv1;
 let monsterATK;
@@ -61,36 +62,43 @@ let monsterATK;
 let lv2EnemyTxt;
 let lv2EnemyLife = enemyLifeDefault.lv2;
 let Mon2;
+let mon2Anim;
 let monster2ATK;
 
 let lv3EnemyTxt;
 let lv3EnemyLife = enemyLifeDefault.lv3;
 let Mon3;
+let mon3Anim;
 let monster3ATK;
 
 let lv4EnemyTxt;
 let lv4EnemyLife = enemyLifeDefault.lv4;
 let Mon4;
+let mon4Anim;
 let monster4ATK;
 
 let lv5EnemyTxt;
 let lv5EnemyLife = enemyLifeDefault.lv5;
 let Mon5;
+let mon5Anim;
 let monster5ATK;
 
 let lv6EnemyTxt;
 let lv6EnemyLife = enemyLifeDefault.lv6;
 let Mon6;
+let mon6Anim;
 let monster6ATK;
 
 let lv7EnemyTxt;
 let lv7EnemyLife = enemyLifeDefault.lv7;
 let Mon7;
+let mon7Anim;
 let monster7ATK;
 
 let lv8EnemyTxt;
 let lv8EnemyLife = enemyLifeDefault.lv8;
 let Mon8;
+let mon8Anim;
 let monster8ATK;
 
 let playerSprite = n0_preload.playerSprite;
@@ -258,7 +266,8 @@ let startState = {
         playerSprite = game.add.sprite(185, 176, 'playerATK');
         pAnim = playerSprite.animations.add('pATK', [0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,0], 30);
         pAnim.onComplete.add(transitioning, this);
-        Mon1 = game.add.image(522, 26, 'Mon1');
+        Mon1 = game.add.sprite(449, 6, 'Mon1');
+        mon1Anim = Mon1.animations.add('mon1ATK', [0,1,1,1,2,2,2,3,3,3,0], 30);
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -312,16 +321,19 @@ let startState = {
 function LV1mob(){
     monsterATK = setInterval(function(){
         if (playerLife == 3) {
+            Mon1.animations.play('mon1ATK');
             playerLife--;
             startState.playerBar.setPercent((playerLife / 3)*100);
             playerWidth = 146;
             playerX = 256;
         } else if (playerLife == 2) {
+            Mon1.animations.play('mon1ATK');
             playerLife--;
             startState.playerBar.setPercent(50);
             playerWidth = 73;
             playerX = 292.5;
         } else if(playerLife == 1) {
+            Mon1.animations.play('mon1ATK');
             playerLife--;
             startState.playerBar.setPercent(0);
             clearInterval(monsterATK);
