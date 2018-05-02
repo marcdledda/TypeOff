@@ -187,13 +187,13 @@ let preloadState = {
         game.load.image('startBTN', 'js/media/startBTN.png');
         game.load.image('healthBG', 'js/media/healthBG.png');
         game.load.spritesheet('Mon1', 'js/media/1Mon.png', 387, 386, 4);
-        game.load.image('Mon2', 'js/media/2Mon.png');
-        game.load.image('Mon3', 'js/media/3Mon.png');
-        game.load.image('Mon4', 'js/media/4Mon.png');
-        game.load.image('Mon5', 'js/media/5Mon.png');
+        game.load.spritesheet('Mon2', 'js/media/2Mon.png', 558, 386, 5);
+        game.load.spritesheet('Mon3', 'js/media/3Mon.png', 579, 312, 5);
+        game.load.spritesheet('Mon4', 'js/media/4Mon.png', 314, 256, 4);
+        game.load.spritesheet('Mon5', 'js/media/5Mon.png', 362, 306, 3);
         game.load.image('Mon6', 'js/media/6Mon.png');
         game.load.image('Mon7', 'js/media/7Mon.png');
-        game.load.image('Mon8', 'js/media/8Mon.png');
+        game.load.spritesheet('Mon8', 'js/media/8Mon.png', 659, 354, 4);
         game.load.image('playerSprite', 'js/media/player.png');
         game.load.spritesheet('playerATK', 'js/media/playerATK.png', 299, 186, 5);
         game.load.image('gameOver', 'js/media/gameOver.png');
