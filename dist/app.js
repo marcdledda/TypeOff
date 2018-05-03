@@ -212,9 +212,9 @@ module.exports = firebase;
 
 function getKey() {
   return {
-    apiKey: "AIzaSyBARqYQ0W6DHVVzxs1NpCiD5qqb_hzEkgQ",
-    authDomain: "cadd-speed-racers.firebaseapp.com",
-    databaseURL: "https://cadd-speed-racers.firebaseio.com"
+    apiKey: "AIzaSyBHkRLUzQxYbiGgaeXpghnugqa-FApIylI",
+    authDomain: "typeoff-f2cd2.firebaseapp.com",
+    databaseURL: "https://typeoff-f2cd2.firebaseio.com"
   };
 }
 
