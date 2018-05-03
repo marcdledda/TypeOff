@@ -50,7 +50,7 @@ let lvSet = 1;
 let enemyBar;
 let enemyConfig;
 
-let enemyLifeDefault = {lv1: 1, lv2: 1, lv3: 1, lv4: 1, lv5: 1, lv6: 1, lv7: 1, lv8: 1};
+let enemyLifeDefault = {lv1: 6, lv2: 7, lv3: 9, lv4: 11, lv5: 13, lv6: 15, lv7: 17, lv8: 18};
 let enemyATKRate = {lv1: 20000, lv2: 20000, lv3: 20000, lv4: 20000, lv5: 20000, lv6: 20000, lv7: 20000, lv8: 20000};
 
 let Mon1;
