@@ -618,7 +618,7 @@ let start5State = {
         playerSprite = game.add.sprite(185, 176, 'playerATK');
         pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,4,0], 10);
         pAnim.onComplete.add(transitioning, this);
-        Mon5 = game.add.sprite(513, 51, 'Mon5');
+        Mon5 = game.add.sprite(455, 12, 'Mon5');
         mon5Anim = Mon5.animations.add('mon5ATK', [0,1,2,2,0], 5);
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
@@ -707,7 +707,8 @@ let start6State = {
         playerSprite = game.add.sprite(185, 176, 'playerATK');
         pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,4,0], 10);
         pAnim.onComplete.add(transitioning, this);
-        Mon6 = game.add.image(522, 18, 'Mon6');
+        Mon6 = game.add.sprite(560, 130, 'Mon6');
+        mon6Anim = Mon6.animations.add('mon6ATK', [0,1,2,3,3,0], 5);
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -765,16 +766,19 @@ function LV6mob(){
             clearInterval(monster6ATK);
         } else {
             if (playerLife == 3) {
+                Mon6.animations.play('mon6ATK');
                 playerLife--;
                 start6State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
+                Mon6.animations.play('mon6ATK');
                 playerLife--;
                 start6State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
+                Mon6.animations.play('mon6ATK');
                 playerLife--;
                 start6State.playerBar.setPercent(0);
                 clearInterval(monster6ATK);
@@ -792,7 +796,8 @@ let start7State = {
         playerSprite = game.add.sprite(185, 176, 'playerATK');
         pAnim = playerSprite.animations.add('pATK', [0,1,2,3,4,4,0], 10);
         pAnim.onComplete.add(transitioning, this);
-        Mon7 = game.add.image(574, 208, 'Mon7');
+        Mon7 = game.add.sprite(110, 179, 'Mon7');
+        mon7Anim = Mon7.animations.add('mon7ATK', [0,1,1,2,2,2,0], 5);
         textBar = game.add.image(0, 318, 'textBar');
         btmLeft = game.add.image(0, 403, 'btmLeft');
         btmRight = game.add.image(430, 403, 'btmRight');
@@ -850,16 +855,19 @@ function LV7mob(){
             clearInterval(monster7ATK);
         } else {
             if (playerLife == 3) {
+                Mon7.animations.play('mon7ATK');
                 playerLife--;
                 start7State.playerBar.setPercent((playerLife / 3)*100);
                 playerWidth = 146;
                 playerX = 256;
             } else if (playerLife == 2) {
+                Mon7.animations.play('mon7ATK');
                 playerLife--;
                 start7State.playerBar.setPercent(50);
                 playerWidth = 73;
                 playerX = 292.5;
             } else if(playerLife == 1) {
+                Mon7.animations.play('mon7ATK');
                 playerLife--;
                 start7State.playerBar.setPercent(0);
                 clearInterval(monster7ATK);
