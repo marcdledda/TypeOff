@@ -211,11 +211,11 @@ function postInfo(input){
     searchData = arrayInput;
     followData = arrayInput;
 
-    if (friendQuestion == true) {
-        friendName.destroy();
-        friendScore.destroy();
-        friendF_UF.destroy();
-    }
+    // if (friendQuestion == true) {
+    //     friendName.destroy();
+    //     friendScore.destroy();
+    //     friendF_UF.destroy();
+    // }
 
     searchQuestion = true;
     friendQuestion = false;
