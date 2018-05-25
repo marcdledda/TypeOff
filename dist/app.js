@@ -283,7 +283,7 @@ let logoLeaderboards;
 
 let getWordData = () => {
     return new Promise ((resolve, reject) => {
-        var wordData = `http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&excludePartOfSpeech=abbreviation,proper-noun,proper-noun-plural,proper-noun-posessive,suffix,family-name,idiom,affix&minCorpusCount=10000&minDictionaryCount=2&minLength=2&maxLength=8&limit=600&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`;
+        var wordData = `http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&excludePartOfSpeech=abbreviation,proper-noun,proper-noun-plural,proper-noun-posessive,suffix,family-name,idiom,affix&minCorpusCount=10000&minDictionaryCount=2&minLength=2&maxLength=8&limit=600&api_key=853eedf4d1e00e8c0f009056db605857d3975c6cd3dadd470`;
         
         let request = new XMLHttpRequest();
 
@@ -2143,11 +2143,11 @@ function postInfo(input){
     searchData = arrayInput;
     followData = arrayInput;
 
-    if (friendQuestion == true) {
-        friendName.destroy();
-        friendScore.destroy();
-        friendF_UF.destroy();
-    }
+    // if (friendQuestion == true) {
+    //     friendName.destroy();
+    //     friendScore.destroy();
+    //     friendF_UF.destroy();
+    // }
 
     searchQuestion = true;
     friendQuestion = false;
